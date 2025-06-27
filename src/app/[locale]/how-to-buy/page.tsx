@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
   title: 'How to Buy ARMT - ArmenianCoin Purchase Guide',
@@ -11,58 +12,60 @@ export const metadata: Metadata = {
 };
 
 export default function HowToBuy() {
+  const t = useTranslations('HowToBuyPage');
+
   const steps = [
     {
       number: 1,
-      title: 'Create MetaMask Wallet',
-      description: 'Set up your secure cryptocurrency wallet',
+      title: t('step1Title'),
+      description: t('step1Desc'),
       icon: Wallet,
       content: [
-        'Visit metamask.io and download the browser extension',
-        'Install MetaMask for Chrome, Firefox, Brave, or Edge',
-        'Click "Create a Wallet" and follow the setup process',
-        'Write down your 12-word recovery phrase and store it safely',
-        'Never share your recovery phrase with anyone',
+        t('step1a'),
+        t('step1b'),
+        t('step1c'),
+        t('step1d'),
+        t('step1e'),
       ],
     },
     {
       number: 2,
-      title: 'Fund Your Wallet',
-      description: 'Add Ethereum (ETH) to your MetaMask wallet',
+      title: t('step2Title'),
+      description: t('step2Desc'),
       icon: CreditCard,
       content: [
-        'Open your MetaMask wallet extension',
-        'Click "Buy" to purchase ETH with a credit card or bank transfer',
-        'Alternatively, transfer ETH from another exchange (Coinbase, Binance, etc.)',
-        'Wait for the transaction to confirm (usually 5-15 minutes)',
-        'Ensure you have enough ETH to cover transaction fees (gas)',
+        t('step2a'),
+        t('step2b'),
+        t('step2c'),
+        t('step2d'),
+        t('step2e'),
       ],
     },
     {
       number: 3,
-      title: 'Connect to ArmenianCoin',
-      description: 'Link your wallet to our platform',
+      title: t('step3Title'),
+      description: t('step3Desc'),
       icon: LinkIcon,
       content: [
-        'Visit the ArmenianCoin trading platform',
-        'Click "Connect Wallet" in the top right corner',
-        'Select MetaMask from the wallet options',
-        'Approve the connection in your MetaMask popup',
-        'Your wallet address will now be displayed on the site',
+        t('step3a'),
+        t('step3b'),
+        t('step3c'),
+        t('step3d'),
+        t('step3e'),
       ],
     },
     {
       number: 4,
-      title: 'Purchase ARMT Tokens',
-      description: 'Buy your ArmenianCoin tokens',
+      title: t('step4Title'),
+      description: t('step4Desc'),
       icon: CheckCircle,
       content: [
-        'Enter the amount of ARMT you want to purchase',
-        'Review the exchange rate and transaction details',
-        'Click "Swap" or "Buy ARMT" to initiate the trade',
-        'Confirm the transaction in your MetaMask wallet',
-        'Wait for blockchain confirmation (usually 1-5 minutes)',
-        'Your ARMT tokens will appear in your wallet',
+        t('step4a'),
+        t('step4b'),
+        t('step4c'),
+        t('step4d'),
+        t('step4e'),
+        t('step4f'),
       ],
     },
   ];
@@ -88,12 +91,10 @@ export default function HowToBuy() {
             </div>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
-            How to Buy ARMT
+            {t('title')}
           </h1>
           <p className="text-xl text-amber-100 leading-relaxed max-w-3xl mx-auto">
-            New to cryptocurrency? No problem! Follow our simple 4-step process to safely 
-            set up your wallet and purchase ARMT tokens to join our mission of supporting 
-            Armenian families and children.
+            {t('subtitle')}
           </p>
         </div>
       </section>
@@ -104,19 +105,19 @@ export default function HowToBuy() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Card className="text-center p-4 hover:shadow-lg transition-all hover-lift border-0 shadow-md">
               <div className="text-2xl font-bold text-amber-600 mb-1">ARMT</div>
-              <div className="text-slate-600 text-sm">Token Symbol</div>
+              <div className="text-slate-600 text-sm">{t('tokenSymbol')}</div>
             </Card>
             <Card className="text-center p-4 hover:shadow-lg transition-all hover-lift border-0 shadow-md">
               <div className="text-2xl font-bold text-blue-600 mb-1">ERC-20</div>
-              <div className="text-slate-600 text-sm">Ethereum Network</div>
+              <div className="text-slate-600 text-sm">{t('ethereumNetwork')}</div>
             </Card>
             <Card className="text-center p-4 hover:shadow-lg transition-all hover-lift border-0 shadow-md">
               <div className="text-2xl font-bold text-red-600 mb-1">1B</div>
-              <div className="text-slate-600 text-sm">Total Supply</div>
+              <div className="text-slate-600 text-sm">{t('totalSupply')}</div>
             </Card>
             <Card className="text-center p-4 hover:shadow-lg transition-all hover-lift border-0 shadow-md">
               <div className="text-2xl font-bold text-green-600 mb-1">10%</div>
-              <div className="text-slate-600 text-sm">To Charity</div>
+              <div className="text-slate-600 text-sm">{t('toCharity')}</div>
             </Card>
           </div>
         </div>
@@ -127,10 +128,10 @@ export default function HowToBuy() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Simple 4-Step Process
+              {t('stepsTitle')}
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Follow these easy steps to purchase ARMT tokens and join our global Armenian community.
+              {t('stepsSubtitle')}
             </p>
           </div>
           
@@ -181,10 +182,10 @@ export default function HowToBuy() {
             <CardHeader className="text-center bg-gradient-to-r from-red-500 to-amber-500 text-white rounded-t-lg">
               <CardTitle className="text-3xl font-bold flex items-center justify-center">
                 <Shield className="w-8 h-8 mr-3" />
-                Critical Safety Information
+                {t('safetyTitle')}
               </CardTitle>
               <CardDescription className="text-red-100 text-lg">
-                Protect yourself and your investment with these essential security practices
+                {t('safetySubtitle')}
               </CardDescription>
             </CardHeader>
             <CardContent className="p-8">
@@ -192,28 +193,28 @@ export default function HowToBuy() {
                 <div className="space-y-6">
                   <h3 className="font-bold text-2xl text-slate-900 flex items-center">
                     <CheckCircle className="w-6 h-6 text-green-500 mr-2" />
-                    Security Best Practices
+                    {t('securityBest')}
                   </h3>
                   <ul className="space-y-3">
                     <li className="flex items-start space-x-3">
                       <span className="text-green-500 text-xl">✓</span>
-                      <span className="text-slate-700"><strong>Never share your recovery phrase</strong> with anyone, ever</span>
+                      <span className="text-slate-700">{t('security1')}</span>
                     </li>
                     <li className="flex items-start space-x-3">
                       <span className="text-green-500 text-xl">✓</span>
-                      <span className="text-slate-700"><strong>Store recovery phrase offline</strong> in a secure location</span>
+                      <span className="text-slate-700">{t('security2')}</span>
                     </li>
                     <li className="flex items-start space-x-3">
                       <span className="text-green-500 text-xl">✓</span>
-                      <span className="text-slate-700"><strong>Always verify website URLs</strong> before connecting your wallet</span>
+                      <span className="text-slate-700">{t('security3')}</span>
                     </li>
                     <li className="flex items-start space-x-3">
                       <span className="text-green-500 text-xl">✓</span>
-                      <span className="text-slate-700"><strong>Start with small amounts</strong> while learning</span>
+                      <span className="text-slate-700">{t('security4')}</span>
                     </li>
                     <li className="flex items-start space-x-3">
                       <span className="text-green-500 text-xl">✓</span>
-                      <span className="text-slate-700"><strong>Use official MetaMask extension</strong> only from metamask.io</span>
+                      <span className="text-slate-700">{t('security5')}</span>
                     </li>
                   </ul>
                 </div>
@@ -221,28 +222,28 @@ export default function HowToBuy() {
                 <div className="space-y-6">
                   <h3 className="font-bold text-2xl text-slate-900 flex items-center">
                     <AlertTriangle className="w-6 h-6 text-red-500 mr-2" />
-                    Common Scams to Avoid
+                    {t('commonScams')}
                   </h3>
                   <ul className="space-y-3">
                     <li className="flex items-start space-x-3">
                       <span className="text-red-500 text-xl">✗</span>
-                      <span className="text-slate-700"><strong>Fake MetaMask extensions</strong> or phishing websites</span>
+                      <span className="text-slate-700">{t('scam1')}</span>
                     </li>
                     <li className="flex items-start space-x-3">
                       <span className="text-red-500 text-xl">✗</span>
-                      <span className="text-slate-700"><strong>Phishing emails</strong> asking for wallet details or recovery phrases</span>
+                      <span className="text-slate-700">{t('scam2')}</span>
                     </li>
                     <li className="flex items-start space-x-3">
                       <span className="text-red-500 text-xl">✗</span>
-                      <span className="text-slate-700"><strong>Social media messages</strong> offering free tokens or "airdrops"</span>
+                      <span className="text-slate-700">{t('scam3')}</span>
                     </li>
                     <li className="flex items-start space-x-3">
                       <span className="text-red-500 text-xl">✗</span>
-                      <span className="text-slate-700"><strong>Unsolicited investment advice</strong> or guaranteed returns</span>
+                      <span className="text-slate-700">{t('scam4')}</span>
                     </li>
                     <li className="flex items-start space-x-3">
                       <span className="text-red-500 text-xl">✗</span>
-                      <span className="text-slate-700"><strong>Fake customer support</strong> asking for private keys</span>
+                      <span className="text-slate-700">{t('scam5')}</span>
                     </li>
                   </ul>
                 </div>
@@ -250,8 +251,7 @@ export default function HowToBuy() {
               
               <div className="mt-8 p-6 bg-amber-50 rounded-lg border-l-4 border-amber-500">
                 <p className="text-slate-700 font-semibold">
-                  <strong>Remember:</strong> ArmenianCoin team will NEVER ask for your private keys, recovery phrase, 
-                  or passwords. Always verify communications through our official channels.
+                  <strong>{t('remember')}</strong> {t('rememberDesc')}
                 </p>
               </div>
             </CardContent>
@@ -265,31 +265,31 @@ export default function HowToBuy() {
           <Card className="border-0 shadow-xl">
             <CardHeader className="text-center">
               <CardTitle className="text-3xl font-bold text-slate-900">
-                ARMT Token Contract Information
+                {t('contractInfoTitle')}
               </CardTitle>
               <CardDescription className="text-lg text-slate-600">
-                Official contract details for ArmenianCoin (ARMT) on Ethereum
+                {t('contractInfoDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-slate-900 mb-2">Token Name</h4>
+                    <h4 className="font-semibold text-slate-900 mb-2">{t('tokenName')}</h4>
                     <p className="text-slate-700 font-mono bg-slate-50 p-2 rounded">ArmenianCoin</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 mb-2">Symbol</h4>
+                    <h4 className="font-semibold text-slate-900 mb-2">{t('symbol')}</h4>
                     <p className="text-slate-700 font-mono bg-slate-50 p-2 rounded">ARMT</p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-slate-900 mb-2">Network</h4>
+                    <h4 className="font-semibold text-slate-900 mb-2">{t('network')}</h4>
                     <p className="text-slate-700 font-mono bg-slate-50 p-2 rounded">Ethereum (ERC-20)</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 mb-2">Total Supply</h4>
+                    <h4 className="font-semibold text-slate-900 mb-2">{t('totalSupply')}</h4>
                     <p className="text-slate-700 font-mono bg-slate-50 p-2 rounded">1,000,000,000 ARMT</p>
                   </div>
                 </div>
@@ -297,8 +297,7 @@ export default function HowToBuy() {
               
               <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                 <p className="text-sm text-slate-600">
-                  <strong>Note:</strong> Contract address will be provided upon token launch. 
-                  Always verify the official contract address through our verified channels before making any transactions.
+                  <strong>{t('contractNoteStrong')}</strong> {t('contractNote')}
                 </p>
               </div>
             </CardContent>
@@ -310,21 +309,20 @@ export default function HowToBuy() {
       <section className="py-20 bg-armenian-gradient animate-gradient">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 glow-text">
-            Ready to Get Started?
+            {t('ctaTitle')}
           </h2>
           <p className="text-xl text-amber-100 mb-10 leading-relaxed">
-            Join thousands of Armenians worldwide who are already supporting families and children 
-            in need through ArmenianCoin. Every purchase makes a difference.
+            {t('ctaDesc')}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button asChild size="lg" variant="secondary" className="bg-white text-amber-700 hover:bg-amber-50 shadow-2xl text-lg px-8 py-4 hover-lift">
               <Link href="/faq">
-                View FAQ <ArrowRight className="ml-2 h-5 w-5" />
+                {t('ctaFaq')} <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button asChild size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white hover:text-amber-700 text-lg px-8 py-4 hover-lift shadow-xl">
               <Link href="/contact">
-                Need Help?
+                {t('ctaHelp')}
               </Link>
             </Button>
           </div>

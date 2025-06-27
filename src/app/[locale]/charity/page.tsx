@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
   title: 'Charity Reports - ArmenianCoin Impact on Armenian Families',
@@ -11,32 +12,34 @@ export const metadata: Metadata = {
 };
 
 export default function Charity() {
+  const t = useTranslations('CharityPage');
+
   const impactStats = [
     {
       number: '1,250',
-      label: 'Families Supported',
-      description: 'Direct assistance to Armenian families in need',
+      label: t('familiesSupported'),
+      description: t('familiesSupportedDesc'),
       icon: Users,
       color: 'from-red-500 to-red-600',
     },
     {
       number: '3,400',
-      label: 'Children Helped',
-      description: 'Educational and healthcare support for Armenian children',
+      label: t('childrenHelped'),
+      description: t('childrenHelpedDesc'),
       icon: Heart,
       color: 'from-blue-500 to-blue-600',
     },
     {
       number: '$485K',
-      label: 'Total Distributed',
-      description: 'Verified charitable contributions to date',
+      label: t('totalDistributed'),
+      description: t('totalDistributedDesc'),
       icon: TrendingUp,
       color: 'from-amber-500 to-amber-600',
     },
     {
       number: '45',
-      label: 'Partner Organizations',
-      description: 'Verified Armenian charitable organizations',
+      label: t('partnerOrganizations'),
+      description: t('partnerOrganizationsDesc'),
       icon: Building,
       color: 'from-green-500 to-green-600',
     },
@@ -44,67 +47,67 @@ export default function Charity() {
 
   const recentProjects = [
     {
-      title: 'Artsakh Family Emergency Relief',
-      date: 'December 2024',
+      title: t('project1Title'),
+      date: t('project1Date'),
       amount: '$125,000',
-      beneficiaries: '350 families',
-      description: 'Emergency housing and food assistance for displaced families from Artsakh.',
-      status: 'Completed',
+      beneficiaries: t('project1Beneficiaries'),
+      description: t('project1Desc'),
+      status: t('project1Status'),
       image: '🏠',
     },
     {
-      title: 'Children\'s Education Program',
-      date: 'November 2024',
+      title: t('project2Title'),
+      date: t('project2Date'),
       amount: '$85,000',
-      beneficiaries: '500 children',
-      description: 'School supplies, books, and educational technology for Armenian children.',
-      status: 'Ongoing',
+      beneficiaries: t('project2Beneficiaries'),
+      description: t('project2Desc'),
+      status: t('project2Status'),
       image: '📚',
     },
     {
-      title: 'Healthcare Support Initiative',
-      date: 'October 2024',
+      title: t('project3Title'),
+      date: t('project3Date'),
       amount: '$95,000',
-      beneficiaries: '200 families',
-      description: 'Medical assistance and healthcare coverage for families in need.',
-      status: 'Completed',
+      beneficiaries: t('project3Beneficiaries'),
+      description: t('project3Desc'),
+      status: t('project3Status'),
       image: '🏥',
     },
     {
-      title: 'Winter Clothing Drive',
-      date: 'September 2024',
+      title: t('project4Title'),
+      date: t('project4Date'),
       amount: '$45,000',
-      beneficiaries: '800 individuals',
-      description: 'Warm clothing and winter supplies for Armenian families.',
-      status: 'Completed',
+      beneficiaries: t('project4Beneficiaries'),
+      description: t('project4Desc'),
+      status: t('project4Status'),
       image: '🧥',
     },
   ];
 
   const partnerOrganizations = [
     {
-      name: 'Armenian Relief Society',
-      focus: 'Family Support & Emergency Aid',
+      name: t('org1Name'),
+      focus: t('org1Focus'),
       established: '1910',
-      description: 'Providing comprehensive support to Armenian families worldwide.',
+      description: t('org1Desc'),
     },
     {
-      name: 'Fund for Armenian Relief',
-      focus: 'Healthcare & Education',
+      name: t('org2Name'),
+      focus: t('org2Focus'),
       established: '1993',
-      description: 'Supporting healthcare and educational initiatives in Armenia.',
+      description: t('org2Desc'),
     },
     {
-      name: 'Artsakh Children\'s Fund',
-      focus: 'Child Welfare',
+      name: t('org3Name'),
+      focus: t('org3Focus'),
       established: '2020',
-      description: 'Dedicated to supporting children and families from Artsakh.',
+      description: t('org3Desc'),
     },
     {
-      name: 'Armenian General Benevolent Union',
-      focus: 'Community Development',
+      name: t('org4Name'),
+      focus: t('org4Focus'),
       established: '1906',
-      description: 'Preserving Armenian identity and supporting community development.',
+      description: t('org4Desc'),
     },
   ];
 
@@ -129,11 +132,10 @@ export default function Charity() {
             </div>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
-            Charity Impact Reports
+            {t('title')}
           </h1>
           <p className="text-xl text-amber-100 leading-relaxed max-w-3xl mx-auto">
-            Transparent reporting on how ArmenianCoin supports Armenian families and children 
-            from Artsakh and throughout Armenia. Every contribution makes a real difference.
+            {t('subtitle')}
           </p>
         </div>
       </section>
@@ -143,11 +145,10 @@ export default function Charity() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Our Impact So Far
+              {t('impactTitle')}
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Real numbers, real families, real impact. See how your support through 
-              ArmenianCoin is making a difference in Armenian communities.
+              {t('impactDesc')}
             </p>
           </div>
           
@@ -171,11 +172,10 @@ export default function Charity() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Recent Charity Projects
+              {t('recentProjectsTitle')}
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Detailed reports on our latest charitable initiatives supporting Armenian 
-              families and children in need.
+              {t('recentProjectsDesc')}
             </p>
           </div>
           
@@ -192,7 +192,7 @@ export default function Charity() {
                       </div>
                     </div>
                     <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      project.status === 'Completed' 
+                      project.status === t('projectStatusCompleted') 
                         ? 'bg-green-100 text-green-800' 
                         : 'bg-blue-100 text-blue-800'
                     }`}>
@@ -205,11 +205,11 @@ export default function Charity() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-amber-50 p-3 rounded-lg">
                       <div className="text-2xl font-bold text-amber-600">{project.amount}</div>
-                      <div className="text-sm text-slate-600">Amount Distributed</div>
+                      <div className="text-sm text-slate-600">{t('amountDistributed')}</div>
                     </div>
                     <div className="bg-blue-50 p-3 rounded-lg">
                       <div className="text-2xl font-bold text-blue-600">{project.beneficiaries}</div>
-                      <div className="text-sm text-slate-600">Beneficiaries</div>
+                      <div className="text-sm text-slate-600">{t('beneficiaries')}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -224,11 +224,10 @@ export default function Charity() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Complete Transparency
+              {t('transparencyTitle')}
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              We believe in full transparency. Every donation is tracked, verified, and reported 
-              to ensure maximum impact and community trust.
+              {t('transparencyDesc')}
             </p>
           </div>
           
@@ -237,10 +236,9 @@ export default function Charity() {
               <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
                 <CheckCircle className="w-8 h-8 text-white" />
               </div>
-              <CardTitle className="text-xl font-bold text-slate-900 mb-4">Verified Recipients</CardTitle>
+              <CardTitle className="text-xl font-bold text-slate-900 mb-4">{t('verifiedRecipients')}</CardTitle>
               <CardDescription className="text-slate-700">
-                All recipient families and organizations are thoroughly verified through our 
-                partner network to ensure aid reaches those who need it most.
+                {t('verifiedRecipientsDesc')}
               </CardDescription>
             </Card>
             
@@ -248,10 +246,9 @@ export default function Charity() {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
                 <Target className="w-8 h-8 text-white" />
               </div>
-              <CardTitle className="text-xl font-bold text-slate-900 mb-4">Blockchain Tracking</CardTitle>
+              <CardTitle className="text-xl font-bold text-slate-900 mb-4">{t('blockchainTracking')}</CardTitle>
               <CardDescription className="text-slate-700">
-                Every charitable transaction is recorded on the blockchain, providing 
-                immutable proof of fund allocation and distribution.
+                {t('blockchainTrackingDesc')}
               </CardDescription>
             </Card>
             
@@ -259,10 +256,9 @@ export default function Charity() {
               <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
                 <Award className="w-8 h-8 text-white" />
               </div>
-              <CardTitle className="text-xl font-bold text-slate-900 mb-4">Impact Reports</CardTitle>
+              <CardTitle className="text-xl font-bold text-slate-900 mb-4">{t('impactReports')}</CardTitle>
               <CardDescription className="text-slate-700">
-                Detailed quarterly reports show exactly how funds are used and the 
-                measurable impact on Armenian families and children.
+                {t('impactReportsDesc')}
               </CardDescription>
             </Card>
           </div>
@@ -274,11 +270,10 @@ export default function Charity() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Trusted Partner Organizations
+              {t('partnersTitle')}
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              We work with established, reputable Armenian organizations with proven track 
-              records of effective charitable work.
+              {t('partnersDesc')}
             </p>
           </div>
           
@@ -292,7 +287,7 @@ export default function Charity() {
                       <CardDescription className="text-amber-600 font-semibold">{org.focus}</CardDescription>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm text-slate-500">Established</div>
+                      <div className="text-sm text-slate-500">{t('established')}</div>
                       <div className="font-bold text-slate-900">{org.established}</div>
                     </div>
                   </div>
@@ -311,15 +306,15 @@ export default function Charity() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              How Your Contribution Helps
+              {t('fundAllocationTitle')}
             </h2>
             <div className="bg-gradient-to-r from-red-500 via-blue-600 to-orange-500 p-1 rounded-2xl inline-block">
               <div className="bg-white rounded-xl px-8 py-6">
                 <p className="text-2xl font-bold text-slate-900 mb-2">
-                  10% of All Funds Go Directly to Charity
+                  {t('fundAllocationHighlight')}
                 </p>
                 <p className="text-lg text-slate-600">
-                  Plus 25% of total token supply (250M ARMT) dedicated to charitable causes
+                  {t('fundAllocationDesc')}
                 </p>
               </div>
             </div>
@@ -328,26 +323,26 @@ export default function Charity() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md bg-gradient-to-br from-red-50 to-red-100">
               <div className="text-4xl mb-3">🏠</div>
-              <CardTitle className="text-lg font-bold text-slate-900 mb-2">40%</CardTitle>
-              <CardDescription className="text-slate-700">Artsakh Family Support</CardDescription>
+              <CardTitle className="text-lg font-bold text-slate-900 mb-2">{t('allocation1Percent')}</CardTitle>
+              <CardDescription className="text-slate-700">{t('allocation1Label')}</CardDescription>
             </Card>
             
             <Card className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md bg-gradient-to-br from-blue-50 to-blue-100">
               <div className="text-4xl mb-3">📚</div>
-              <CardTitle className="text-lg font-bold text-slate-900 mb-2">30%</CardTitle>
-              <CardDescription className="text-slate-700">Children's Education</CardDescription>
+              <CardTitle className="text-lg font-bold text-slate-900 mb-2">{t('allocation2Percent')}</CardTitle>
+              <CardDescription className="text-slate-700">{t('allocation2Label')}</CardDescription>
             </Card>
             
             <Card className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md bg-gradient-to-br from-green-50 to-green-100">
               <div className="text-4xl mb-3">🏥</div>
-              <CardTitle className="text-lg font-bold text-slate-900 mb-2">20%</CardTitle>
-              <CardDescription className="text-slate-700">Healthcare Support</CardDescription>
+              <CardTitle className="text-lg font-bold text-slate-900 mb-2">{t('allocation3Percent')}</CardTitle>
+              <CardDescription className="text-slate-700">{t('allocation3Label')}</CardDescription>
             </Card>
             
             <Card className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md bg-gradient-to-br from-amber-50 to-amber-100">
               <div className="text-4xl mb-3">🚨</div>
-              <CardTitle className="text-lg font-bold text-slate-900 mb-2">10%</CardTitle>
-              <CardDescription className="text-slate-700">Emergency Relief</CardDescription>
+              <CardTitle className="text-lg font-bold text-slate-900 mb-2">{t('allocation4Percent')}</CardTitle>
+              <CardDescription className="text-slate-700">{t('allocation4Label')}</CardDescription>
             </Card>
           </div>
         </div>
@@ -357,22 +352,21 @@ export default function Charity() {
       <section className="py-20 bg-armenian-gradient animate-gradient">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 glow-text">
-            Be Part of the Impact
+            {t('ctaTitle')}
           </h2>
           <p className="text-xl text-amber-100 mb-10 leading-relaxed">
-            Every ARMT token you purchase directly contributes to supporting Armenian families 
-            and children in need. Join our mission of compassion and community support.
+            {t('ctaDesc')}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button asChild size="lg" variant="secondary" className="bg-white text-amber-700 hover:bg-amber-50 shadow-2xl text-lg px-8 py-4 hover-lift">
               <Link href="/how-to-buy">
                 <Heart className="mr-2 h-5 w-5" />
-                Buy ARMT & Help Families
+                {t('ctaBuy')}
               </Link>
             </Button>
             <Button asChild size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white hover:text-amber-700 text-lg px-8 py-4 hover-lift shadow-xl">
               <Link href="/about">
-                Learn About Our Mission
+                {t('ctaLearn')}
               </Link>
             </Button>
           </div>

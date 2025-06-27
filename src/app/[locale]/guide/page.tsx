@@ -4,64 +4,67 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
-  title: 'Beginner\'s Guide - ArmenianCoin (ARMT)',
+  title: "Beginner's Guide - ArmenianCoin (ARMT)",
   description: 'Complete step-by-step guide to getting started with ArmenianCoin. Learn how to create a MetaMask wallet, fund it, and buy ARMT tokens safely.',
 };
 
 export default function Guide() {
+  const t = useTranslations('GuidePage');
+
   const steps = [
     {
       number: 1,
-      title: 'Create MetaMask Wallet',
-      description: 'Set up your secure cryptocurrency wallet',
+      title: t('step1Title'),
+      description: t('step1Desc'),
       icon: Wallet,
       content: [
-        'Visit metamask.io and download the browser extension',
-        'Install MetaMask for Chrome, Firefox, Brave, or Edge',
-        'Click "Create a Wallet" and follow the setup process',
-        'Write down your 12-word recovery phrase and store it safely',
-        'Never share your recovery phrase with anyone',
+        t('step1a'),
+        t('step1b'),
+        t('step1c'),
+        t('step1d'),
+        t('step1e'),
       ],
     },
     {
       number: 2,
-      title: 'Fund Your Wallet',
-      description: 'Add cryptocurrency to your MetaMask wallet',
+      title: t('step2Title'),
+      description: t('step2Desc'),
       icon: CreditCard,
       content: [
-        'Open your MetaMask wallet extension',
-        'Click "Buy" to purchase ETH with a credit card or bank transfer',
-        'Alternatively, transfer ETH from another exchange (Coinbase, Binance, etc.)',
-        'Wait for the transaction to confirm (usually 5-15 minutes)',
-        'Ensure you have enough ETH to cover transaction fees (gas)',
+        t('step2a'),
+        t('step2b'),
+        t('step2c'),
+        t('step2d'),
+        t('step2e'),
       ],
     },
     {
       number: 3,
-      title: 'Connect to ArmenianCoin',
-      description: 'Link your wallet to our platform',
+      title: t('step3Title'),
+      description: t('step3Desc'),
       icon: LinkIcon,
       content: [
-        'Visit the ArmenianCoin trading platform',
-        'Click "Connect Wallet" in the top right corner',
-        'Select MetaMask from the wallet options',
-        'Approve the connection in your MetaMask popup',
-        'Your wallet address will now be displayed on the site',
+        t('step3a'),
+        t('step3b'),
+        t('step3c'),
+        t('step3d'),
+        t('step3e'),
       ],
     },
     {
       number: 4,
-      title: 'Buy ARMT Tokens',
-      description: 'Purchase your ArmenianCoin tokens',
+      title: t('step4Title'),
+      description: t('step4Desc'),
       icon: CheckCircle,
       content: [
-        'Enter the amount of ARMT you want to purchase',
-        'Review the exchange rate and transaction details',
-        'Click "Swap" or "Buy ARMT" to initiate the trade',
-        'Confirm the transaction in your MetaMask wallet',
-        'Wait for blockchain confirmation (usually 1-5 minutes)',
+        t('step4a'),
+        t('step4b'),
+        t('step4c'),
+        t('step4d'),
+        t('step4e'),
       ],
     },
   ];
@@ -87,11 +90,10 @@ export default function Guide() {
             </div>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Beginner's Guide to ArmenianCoin
+            {t('title')}
           </h1>
           <p className="text-xl text-amber-100 leading-relaxed">
-            New to cryptocurrency? No problem! Follow our simple 4-step process to safely 
-            set up your wallet and purchase ARMT tokens to join our global Armenian community.
+            {t('subtitle')}
           </p>
         </div>
       </section>
@@ -146,51 +148,51 @@ export default function Guide() {
             <CardHeader className="text-center">
               <CardTitle className="text-2xl font-bold text-amber-800 flex items-center justify-center">
                 <Download className="w-6 h-6 mr-2" />
-                Important Safety Tips
+                {t('safetyTitle')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg text-slate-900">Security Best Practices</h3>
+                  <h3 className="font-semibold text-lg text-slate-900">{t('securityBest')}</h3>
                   <ul className="space-y-2">
                     <li className="flex items-start space-x-2">
                       <span className="text-amber-600">⚠️</span>
-                      <span className="text-sm text-slate-700">Never share your recovery phrase with anyone</span>
+                      <span className="text-sm text-slate-700">{t('security1')}</span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-amber-600">🔒</span>
-                      <span className="text-sm text-slate-700">Store your recovery phrase offline and securely</span>
+                      <span className="text-sm text-slate-700">{t('security2')}</span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-amber-600">🌐</span>
-                      <span className="text-sm text-slate-700">Always verify website URLs before connecting</span>
+                      <span className="text-sm text-slate-700">{t('security3')}</span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-amber-600">💰</span>
-                      <span className="text-sm text-slate-700">Start with small amounts while learning</span>
+                      <span className="text-sm text-slate-700">{t('security4')}</span>
                     </li>
                   </ul>
                 </div>
                 
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg text-slate-900">Common Scams to Avoid</h3>
+                  <h3 className="font-semibold text-lg text-slate-900">{t('commonScams')}</h3>
                   <ul className="space-y-2">
                     <li className="flex items-start space-x-2">
                       <span className="text-red-500">❌</span>
-                      <span className="text-sm text-slate-700">Fake MetaMask extensions or websites</span>
+                      <span className="text-sm text-slate-700">{t('scam1')}</span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-red-500">❌</span>
-                      <span className="text-sm text-slate-700">Phishing emails asking for wallet details</span>
+                      <span className="text-sm text-slate-700">{t('scam2')}</span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-red-500">❌</span>
-                      <span className="text-sm text-slate-700">Social media messages offering free tokens</span>
+                      <span className="text-sm text-slate-700">{t('scam3')}</span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-red-500">❌</span>
-                      <span className="text-sm text-slate-700">Unsolicited investment advice or "guarantees"</span>
+                      <span className="text-sm text-slate-700">{t('scam4')}</span>
                     </li>
                   </ul>
                 </div>
@@ -204,21 +206,20 @@ export default function Guide() {
       <section className="py-20 bg-gradient-to-r from-amber-600 via-blue-600 to-red-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Still Have Questions?
+            {t('ctaTitle')}
           </h2>
           <p className="text-xl text-amber-100 mb-8">
-            Check out our FAQ section for answers to common questions, or reach out to our 
-            Armenian community for support and guidance.
+            {t('ctaDesc')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" variant="secondary" className="bg-white text-amber-600 hover:bg-amber-50 shadow-lg">
               <Link href="/faq">
-                View FAQ <ArrowRight className="ml-2 h-4 w-4" />
+                {t('ctaFaq')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white hover:text-amber-600 shadow-xl">
               <Link href="/">
-                Back to Home
+                {t('ctaHome')}
               </Link>
             </Button>
           </div>

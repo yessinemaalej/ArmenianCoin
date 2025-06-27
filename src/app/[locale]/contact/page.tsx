@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
   title: 'Contact & Wallet Info - ArmenianCoin (ARMT)',
@@ -11,28 +12,30 @@ export const metadata: Metadata = {
 };
 
 export default function Contact() {
+  const t = useTranslations('ContactPage');
+
   const contactMethods = [
     {
-      title: 'Community Support',
-      description: 'Join our global Armenian community for peer support and discussions',
+      title: t('communitySupportTitle'),
+      description: t('communitySupportDesc'),
       icon: MessageSquare,
-      action: 'Join Telegram',
+      action: t('communitySupportAction'),
       link: '#',
       color: 'from-blue-500 to-blue-600',
     },
     {
-      title: 'Official Email',
-      description: 'For official inquiries, partnerships, and technical support',
+      title: t('officialEmailTitle'),
+      description: t('officialEmailDesc'),
       icon: Mail,
-      action: 'Send Email',
+      action: t('officialEmailAction'),
       link: 'mailto:info@armeniancoin.org',
       color: 'from-amber-500 to-amber-600',
     },
     {
-      title: 'Security Issues',
-      description: 'Report security vulnerabilities or suspicious activities',
+      title: t('securityIssuesTitle'),
+      description: t('securityIssuesDesc'),
       icon: Shield,
-      action: 'Report Issue',
+      action: t('securityIssuesAction'),
       link: 'mailto:security@armeniancoin.org',
       color: 'from-red-500 to-red-600',
     },
@@ -42,36 +45,36 @@ export default function Contact() {
     {
       name: 'Twitter',
       handle: '@ArmenianCoin',
-      description: 'Latest updates and announcements',
+      description: t('twitterDesc'),
       icon: '🐦',
       verified: true,
     },
     {
       name: 'Telegram',
       handle: '@ArmenianCoinOfficial',
-      description: 'Community discussions and support',
+      description: t('telegramDesc'),
       icon: '📱',
       verified: true,
     },
     {
       name: 'Discord',
       handle: 'ArmenianCoin Community',
-      description: 'Real-time chat and community events',
+      description: t('discordDesc'),
       icon: '💬',
       verified: true,
     },
     {
       name: 'LinkedIn',
       handle: 'ArmenianCoin',
-      description: 'Professional updates and partnerships',
+      description: t('linkedinDesc'),
       icon: '💼',
       verified: false,
     },
   ];
 
   const walletInfo = {
-    contractAddress: 'Coming Soon',
-    network: 'Ethereum Mainnet',
+    contractAddress: t('walletContractAddress'),
+    network: t('walletNetwork'),
     symbol: 'ARMT',
     decimals: 18,
     totalSupply: '1,000,000,000',
@@ -98,11 +101,10 @@ export default function Contact() {
             </div>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
-            Contact & Wallet Info
+            {t('title')}
           </h1>
           <p className="text-xl text-amber-100 leading-relaxed max-w-3xl mx-auto">
-            Get in touch with our team, join our community, and find official wallet 
-            contract information for ArmenianCoin (ARMT).
+            {t('subtitle')}
           </p>
         </div>
       </section>
@@ -112,11 +114,10 @@ export default function Contact() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Get in Touch
+              {t('getInTouchTitle')}
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              We're here to help! Reach out through any of our official channels for 
-              support, questions, or to join our global Armenian community.
+              {t('getInTouchDesc')}
             </p>
           </div>
           
@@ -146,11 +147,10 @@ export default function Contact() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Follow Our Official Channels
+              {t('followChannelsTitle')}
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Stay updated with the latest news, announcements, and community discussions 
-              through our verified social media channels.
+              {t('followChannelsDesc')}
             </p>
           </div>
           
@@ -168,7 +168,7 @@ export default function Contact() {
                     </div>
                     {social.verified && (
                       <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">
-                        Verified
+                        {t('verified')}
                       </div>
                     )}
                   </div>
@@ -176,7 +176,7 @@ export default function Contact() {
                 <CardContent>
                   <p className="text-slate-700 mb-4">{social.description}</p>
                   <Button variant="outline" size="sm" className="border-amber-600 text-amber-700 hover:bg-amber-50">
-                    Follow <ExternalLink className="ml-2 h-4 w-4" />
+                    {t('followAction')} <ExternalLink className="ml-2 h-4 w-4" />
                   </Button>
                 </CardContent>
               </Card>
@@ -190,11 +190,10 @@ export default function Contact() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Official Wallet Information
+              {t('walletInfoTitle')}
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Official contract details and wallet information for ArmenianCoin (ARMT). 
-              Always verify through our official channels before making transactions.
+              {t('walletInfoDesc')}
             </p>
           </div>
           
@@ -204,16 +203,16 @@ export default function Contact() {
                 <div className="flex justify-center mb-4">
                   <Wallet className="w-12 h-12" />
                 </div>
-                <CardTitle className="text-3xl font-bold">ARMT Token Contract</CardTitle>
+                <CardTitle className="text-3xl font-bold">{t('walletCardTitle')}</CardTitle>
                 <CardDescription className="text-amber-100 text-lg">
-                  Official ArmenianCoin (ARMT) smart contract information
+                  {t('walletCardDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-6">
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-2">Token Name</h4>
+                      <h4 className="font-semibold text-slate-900 mb-2">{t('tokenName')}</h4>
                       <div className="flex items-center justify-between bg-white p-3 rounded-lg border">
                         <span className="font-mono text-slate-700">ArmenianCoin</span>
                         <Button variant="ghost" size="sm">
@@ -223,7 +222,7 @@ export default function Contact() {
                     </div>
                     
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-2">Symbol</h4>
+                      <h4 className="font-semibold text-slate-900 mb-2">{t('symbol')}</h4>
                       <div className="flex items-center justify-between bg-white p-3 rounded-lg border">
                         <span className="font-mono text-slate-700">{walletInfo.symbol}</span>
                         <Button variant="ghost" size="sm">
@@ -233,7 +232,7 @@ export default function Contact() {
                     </div>
                     
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-2">Network</h4>
+                      <h4 className="font-semibold text-slate-900 mb-2">{t('network')}</h4>
                       <div className="flex items-center justify-between bg-white p-3 rounded-lg border">
                         <span className="font-mono text-slate-700">{walletInfo.network}</span>
                         <Button variant="ghost" size="sm">
@@ -245,7 +244,7 @@ export default function Contact() {
                   
                   <div className="space-y-6">
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-2">Decimals</h4>
+                      <h4 className="font-semibold text-slate-900 mb-2">{t('decimals')}</h4>
                       <div className="flex items-center justify-between bg-white p-3 rounded-lg border">
                         <span className="font-mono text-slate-700">{walletInfo.decimals}</span>
                         <Button variant="ghost" size="sm">
@@ -255,7 +254,7 @@ export default function Contact() {
                     </div>
                     
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-2">Total Supply</h4>
+                      <h4 className="font-semibold text-slate-900 mb-2">{t('totalSupply')}</h4>
                       <div className="flex items-center justify-between bg-white p-3 rounded-lg border">
                         <span className="font-mono text-slate-700">{walletInfo.totalSupply}</span>
                         <Button variant="ghost" size="sm">
@@ -265,7 +264,7 @@ export default function Contact() {
                     </div>
                     
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-2">Contract Address</h4>
+                      <h4 className="font-semibold text-slate-900 mb-2">{t('contractAddress')}</h4>
                       <div className="flex items-center justify-between bg-white p-3 rounded-lg border">
                         <span className="font-mono text-slate-700">{walletInfo.contractAddress}</span>
                         <Button variant="ghost" size="sm" disabled>
@@ -280,11 +279,9 @@ export default function Contact() {
                   <div className="flex items-start space-x-3">
                     <Shield className="w-6 h-6 text-amber-600 mt-0.5" />
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-2">Security Notice</h4>
+                      <h4 className="font-semibold text-slate-900 mb-2">{t('securityNoticeTitle')}</h4>
                       <p className="text-slate-700 text-sm leading-relaxed">
-                        <strong>Always verify the contract address through our official channels before making any transactions.</strong> 
-                        ArmenianCoin team will never ask for your private keys, recovery phrases, or passwords. 
-                        Be cautious of scams and only use official contract addresses provided through verified sources.
+                        {t('securityNoticeDesc')}
                       </p>
                     </div>
                   </div>
@@ -292,11 +289,11 @@ export default function Contact() {
                 
                 <div className="mt-6 text-center">
                   <p className="text-slate-600 mb-4">
-                    Contract address will be announced upon token launch through all official channels.
+                    {t('contractNotice')}
                   </p>
                   <Button asChild className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white shadow-lg hover-lift">
                     <Link href="/how-to-buy">
-                      Learn How to Buy ARMT
+                      {t('learnHowToBuy')}
                     </Link>
                   </Button>
                 </div>
@@ -311,10 +308,10 @@ export default function Contact() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Security Guidelines
+              {t('securityGuidelinesTitle')}
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Protect yourself and your investment by following these essential security practices.
+              {t('securityGuidelinesDesc')}
             </p>
           </div>
           
@@ -323,30 +320,30 @@ export default function Contact() {
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-slate-900 flex items-center">
                   <Shield className="w-6 h-6 text-green-600 mr-3" />
-                  Do's
+                  {t('dos')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3 text-slate-700">
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2 text-xl">✓</span>
-                    <span>Always verify contract addresses through official channels</span>
+                    <span>{t('do1')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2 text-xl">✓</span>
-                    <span>Use official MetaMask extension from metamask.io</span>
+                    <span>{t('do2')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2 text-xl">✓</span>
-                    <span>Store recovery phrases offline and securely</span>
+                    <span>{t('do3')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2 text-xl">✓</span>
-                    <span>Double-check website URLs before connecting wallets</span>
+                    <span>{t('do4')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2 text-xl">✓</span>
-                    <span>Start with small amounts while learning</span>
+                    <span>{t('do5')}</span>
                   </li>
                 </ul>
               </CardContent>
@@ -356,30 +353,30 @@ export default function Contact() {
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-slate-900 flex items-center">
                   <Shield className="w-6 h-6 text-red-600 mr-3" />
-                  Don'ts
+                  {t('donts')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3 text-slate-700">
                   <li className="flex items-start">
                     <span className="text-red-500 mr-2 text-xl">✗</span>
-                    <span>Never share your recovery phrase with anyone</span>
+                    <span>{t('dont1')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-red-500 mr-2 text-xl">✗</span>
-                    <span>Don't click on suspicious links or emails</span>
+                    <span>{t('dont2')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-red-500 mr-2 text-xl">✗</span>
-                    <span>Avoid fake social media accounts or websites</span>
+                    <span>{t('dont3')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-red-500 mr-2 text-xl">✗</span>
-                    <span>Don't trust "too good to be true" offers</span>
+                    <span>{t('dont4')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-red-500 mr-2 text-xl">✗</span>
-                    <span>Never give private keys to "customer support"</span>
+                    <span>{t('dont5')}</span>
                   </li>
                 </ul>
               </CardContent>
@@ -392,22 +389,21 @@ export default function Contact() {
       <section className="py-20 bg-armenian-gradient animate-gradient">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 glow-text">
-            Join Our Community
+            {t('ctaTitle')}
           </h2>
           <p className="text-xl text-amber-100 mb-10 leading-relaxed">
-            Connect with thousands of Armenians worldwide who share our mission of supporting 
-            families and children in need. Together, we can make a real difference.
+            {t('ctaDesc')}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button asChild size="lg" variant="secondary" className="bg-white text-amber-700 hover:bg-amber-50 shadow-2xl text-lg px-8 py-4 hover-lift">
               <Link href="/how-to-buy">
                 <Wallet className="mr-2 h-5 w-5" />
-                Buy ARMT Now
+                {t('ctaBuy')}
               </Link>
             </Button>
             <Button asChild size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white hover:text-amber-700 text-lg px-8 py-4 hover-lift shadow-xl">
               <Link href="/faq">
-                Have Questions?
+                {t('ctaFaq')}
               </Link>
             </Button>
           </div>

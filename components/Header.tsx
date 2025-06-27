@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 type Language = 'en' | 'ru' | 'hy';
 
@@ -29,26 +30,41 @@ const languages: LanguageOption[] = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>('en');
   const pathname = usePathname();
+  const router = useRouter();
+  const t = useTranslations('Header');
 
+  // Get current language from URL
+  const currentLanguage = languages.find(lang => pathname.startsWith(`/${lang.code}`))?.code || 'en';
+
+  // Navigation with translated labels and locale in href
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'How to Buy', href: '/how-to-buy' },
-    { name: 'Tokenomics', href: '/tokenomics' },
-    { name: 'Charity Reports', href: '/charity' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Contact', href: '/contact' },
+    { name: t('home'), href: '' },
+    { name: t('about'), href: 'about' },
+    { name: t('howToBuy'), href: 'how-to-buy' },
+    { name: t('tokenomics'), href: 'tokenomics' },
+    { name: t('charity'), href: 'charity' },
+    { name: t('faq'), href: 'faq' },
+    { name: t('contact'), href: 'contact' },
   ];
 
-  const isActive = (href: string) => pathname === href;
+  // Helper to build locale-aware hrefs
+  const getLocaleHref = (href: string) => `/${currentLanguage}${href ? `/${href}` : ''}`;
+
+  const isActive = (href: string) => {
+    const localeHref = getLocaleHref(href);
+    return pathname === localeHref;
+  };
 
   const handleLanguageChange = (languageCode: Language) => {
-    setCurrentLanguage(languageCode);
-    // Here you would typically implement actual language switching logic
-    // For now, we'll just update the state
-    console.log(`Language changed to: ${languageCode}`);
+    const segments = pathname.split('/');
+    if (languages.some(lang => lang.code === segments[1])) {
+      segments[1] = languageCode;
+    } else {
+      segments.splice(1, 0, languageCode);
+    }
+    const newPath = segments.join('/') || '/';
+    router.push(newPath);
   };
 
   const getCurrentLanguage = () => {
@@ -59,8 +75,8 @@ export default function Header() {
     <header className="bg-white/95 backdrop-blur-md border-b border-amber-100 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* logonobg */}
-          <Link href="/" className="flex items-center space-x-3 group">
+          {/* Logo */}
+          <Link href={getLocaleHref('')} className="flex items-center space-x-3 group">
             <div className="w-10 h-10 relative group-hover:scale-105 transition-transform">
               <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-400 via-red-500 to-blue-600 p-0.5 animate-pulse-glow">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
@@ -84,7 +100,7 @@ export default function Header() {
             {navigation.map((item) => (
               <Link
                 key={item.name}
-                href={item.href}
+                href={getLocaleHref(item.href)}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover-lift ${
                   isActive(item.href)
                     ? 'text-amber-700 bg-amber-50 border-b-2 border-amber-600'
@@ -159,7 +175,7 @@ export default function Header() {
               {navigation.map((item) => (
                 <Link
                   key={item.name}
-                  href={item.href}
+                  href={getLocaleHref(item.href)}
                   className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
                     isActive(item.href)
                       ? 'text-amber-700 bg-amber-50'
