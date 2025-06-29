@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function Footer() {
+  const t = useTranslations('Footer');
+
   return (
     <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-slate-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -27,8 +30,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm leading-6 text-slate-400">
-              "With heart, soul and by the law" - Uniting Armenians worldwide through cryptocurrency 
-              to support families and children from Artsakh and those in need.
+              {t('brandSlogan')}
             </p>
             <div className="flex space-x-1">
               <div className="w-6 h-4 bg-red-600 rounded-sm"></div>
@@ -39,26 +41,26 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <h3 className="font-semibold text-amber-400 mb-4">Navigation</h3>
+            <h3 className="font-semibold text-amber-400 mb-4">{t('navigationTitle')}</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="text-sm hover:text-amber-400 transition-colors">
-                  Home
+                  {t('navHome')}
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-sm hover:text-amber-400 transition-colors">
-                  About the Project
+                  {t('navAbout')}
                 </Link>
               </li>
               <li>
                 <Link href="/how-to-buy" className="text-sm hover:text-amber-400 transition-colors">
-                  How to Buy
+                  {t('navHowToBuy')}
                 </Link>
               </li>
               <li>
                 <Link href="/tokenomics" className="text-sm hover:text-amber-400 transition-colors">
-                  Tokenomics
+                  {t('navTokenomics')}
                 </Link>
               </li>
             </ul>
@@ -66,21 +68,21 @@ export default function Footer() {
 
           {/* Community */}
           <div>
-            <h3 className="font-semibold text-amber-400 mb-4">Community</h3>
+            <h3 className="font-semibold text-amber-400 mb-4">{t('communityTitle')}</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/charity" className="text-sm hover:text-amber-400 transition-colors">
-                  Charity Reports
+                  {t('navCharity')}
                 </Link>
               </li>
               <li>
                 <Link href="/faq" className="text-sm hover:text-amber-400 transition-colors">
-                  FAQ
+                  {t('navFAQ')}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-sm hover:text-amber-400 transition-colors">
-                  Contact & Wallet Info
+                  {t('navContact')}
                 </Link>
               </li>
             </ul>
@@ -88,23 +90,23 @@ export default function Footer() {
 
           {/* Token Info */}
           <div>
-            <h3 className="font-semibold text-amber-400 mb-4">Token Info</h3>
+            <h3 className="font-semibold text-amber-400 mb-4">{t('tokenInfoTitle')}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center space-x-2">
                 <span className="text-amber-400">🪙</span>
-                <span>Symbol: ARMT</span>
+                <span>{t('tokenSymbol')}</span>
               </li>
               <li className="flex items-center space-x-2">
                 <span className="text-blue-400">⛓️</span>
-                <span>Network: Ethereum</span>
+                <span>{t('tokenNetwork')}</span>
               </li>
               <li className="flex items-center space-x-2">
                 <span className="text-green-400">📊</span>
-                <span>Supply: 1B ARMT</span>
+                <span>{t('tokenSupply')}</span>
               </li>
               <li className="flex items-center space-x-2">
                 <span className="text-red-400">❤️</span>
-                <span>10% to Charity</span>
+                <span>{t('tokenCharity')}</span>
               </li>
             </ul>
           </div>
@@ -113,16 +115,14 @@ export default function Footer() {
         <div className="border-t border-slate-700 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-center md:text-left text-slate-400">
-              © 2025 ArmenianCoin (ARMT). All rights reserved.
+              © 2025 ArmenianCoin (ARMT). {t('copyright')}
             </p>
             <div className="text-xs text-slate-500 max-w-md text-center md:text-right">
               <p className="mb-2">
-                <strong className="text-amber-400">Legal Disclaimer:</strong> ArmenianCoin (ARMT) is a cryptocurrency token. 
-                All cryptocurrency investments carry inherent risks and may result in loss of capital.
+                <strong className="text-amber-400">{t('legalDisclaimerTitle')}</strong> {t('legalDisclaimer')}
               </p>
               <p>
-                Please conduct thorough research and consult with financial advisors before investing. 
-                This website does not constitute financial advice. Invest responsibly and only what you can afford to lose.
+                {t('legalAdvice')}
               </p>
             </div>
           </div>
