@@ -1,0 +1,224 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  email             String?   @unique
+  emailVerified     DateTime?
+  password          String?
+  name              String?
+  image             String?
+  role              Role      @default(USER)
+  
+  // Wallet related fields
+  walletAddress     String?   @unique
+  walletVerified    Boolean   @default(false)
+  
+  // 2FA fields
+  twoFactorEnabled  Boolean   @default(false)
+  twoFactorSecret   String?
+  twoFactorBackupCodes String[]
+  
+  // Timestamps
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  lastLoginAt       DateTime?
+  
+  // Relations
+  accounts          Account[]
+  sessions          Session[]
+  loginHistory      LoginHistory[]
+  emailVerificationTokens EmailVerificationToken[]
+  passwordResetTokens PasswordResetToken[]
+  twoFactorTokens   TwoFactorToken[]
+  charityProjects   CharityProject[] @relation("CreatedBy")
+  updatedProjects   CharityProject[] @relation("UpdatedBy")
+
+  @@map("users")
+}
+
+model LoginHistory {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  method      LoginMethod
+  ipAddress   String?
+  userAgent   String?
+  success     Boolean
+  failureReason String?
+  timestamp   DateTime @default(now())
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("login_history")
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("email_verification_tokens")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("password_reset_tokens")
+}
+
+model TwoFactorToken {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("two_factor_tokens")
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Charity-related models
+model CharityProject {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
+  date              DateTime
+  amount            String
+  beneficiaries     String
+  description       String
+  status            ProjectStatus
+  image             String
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  createdById       String   @db.ObjectId
+  updatedById       String?  @db.ObjectId
+  
+  // Relations
+  createdBy         User     @relation("CreatedBy", fields: [createdById], references: [id])
+  updatedBy         User?    @relation("UpdatedBy", fields: [updatedById], references: [id])
+
+  @@map("charity_projects")
+}
+
+model CharityStat {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  key               String   @unique
+  value             String
+  label             String
+  description       String
+  icon              String
+  color             String
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("charity_stats")
+}
+
+model CharityPartner {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  focus             String
+  established       String
+  description       String
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("charity_partners")
+}
+
+model CharityAllocation {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  category          String
+  percentage        Int
+  description       String
+  icon              String
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("charity_allocations")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum LoginMethod {
+  EMAIL
+  WALLET
+  GOOGLE
+  GITHUB
+}
+
+enum ProjectStatus {
+  COMPLETED
+  ONGOING
+  PLANNED
+}

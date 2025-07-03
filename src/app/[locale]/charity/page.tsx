@@ -1,115 +1,101 @@
-import type { Metadata } from 'next';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { Heart, Users, BookOpen, Building, TrendingUp, Award, CheckCircle, Target } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Skeleton } from '@/components/ui/skeleton';
 
-export const metadata: Metadata = {
-  title: 'Charity Reports - ArmenianCoin Impact on Armenian Families',
-  description: 'View transparent reports on how ArmenianCoin supports Armenian families and children from Artsakh. 10% of funds go to verified charity support.',
-};
+interface CharityStat {
+  id: string;
+  key: string;
+  value: string;
+  label: string;
+  description: string;
+  icon: string;
+  color: string;
+}
+
+interface CharityProject {
+  id: string;
+  title: string;
+  date: string;
+  amount: string;
+  beneficiaries: string;
+  description: string;
+  status: 'COMPLETED' | 'ONGOING' | 'PLANNED';
+  image: string;
+}
+
+interface CharityPartner {
+  id: string;
+  name: string;
+  focus: string;
+  established: string;
+  description: string;
+}
+
+interface CharityAllocation {
+  id: string;
+  category: string;
+  percentage: number;
+  description: string;
+  icon: string;
+}
+
+interface CharityData {
+  stats: CharityStat[];
+  projects: CharityProject[];
+  partners: CharityPartner[];
+  allocations: CharityAllocation[];
+}
 
 export default function Charity() {
   const t = useTranslations('CharityPage');
+  const [charityData, setCharityData] = useState<CharityData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const impactStats = [
-    {
-      number: '1,250',
-      label: t('familiesSupported'),
-      description: t('familiesSupportedDesc'),
-      icon: Users,
-      color: 'from-red-500 to-red-600',
-    },
-    {
-      number: '3,400',
-      label: t('childrenHelped'),
-      description: t('childrenHelpedDesc'),
-      icon: Heart,
-      color: 'from-blue-500 to-blue-600',
-    },
-    {
-      number: '$485K',
-      label: t('totalDistributed'),
-      description: t('totalDistributedDesc'),
-      icon: TrendingUp,
-      color: 'from-amber-500 to-amber-600',
-    },
-    {
-      number: '45',
-      label: t('partnerOrganizations'),
-      description: t('partnerOrganizationsDesc'),
-      icon: Building,
-      color: 'from-green-500 to-green-600',
-    },
-  ];
+  useEffect(() => {
+    const fetchCharityData = async () => {
+      try {
+        console.log('Fetching charity data from:', '/api/charity');
+        const response = await fetch('/api/charity');
+        if (!response.ok) {
+          console.error('Charity API response not OK:', response.status, response.statusText);
+          throw new Error('Failed to fetch charity data');
+        }
+        const data = await response.json();
+        console.log('Charity data received:', data);
+        setCharityData(data);
+      } catch (err) {
+        console.error('Error fetching charity data:', err);
+        setError('Failed to load charity information. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const recentProjects = [
-    {
-      title: t('project1Title'),
-      date: t('project1Date'),
-      amount: '$125,000',
-      beneficiaries: t('project1Beneficiaries'),
-      description: t('project1Desc'),
-      status: t('project1Status'),
-      image: '🏠',
-    },
-    {
-      title: t('project2Title'),
-      date: t('project2Date'),
-      amount: '$85,000',
-      beneficiaries: t('project2Beneficiaries'),
-      description: t('project2Desc'),
-      status: t('project2Status'),
-      image: '📚',
-    },
-    {
-      title: t('project3Title'),
-      date: t('project3Date'),
-      amount: '$95,000',
-      beneficiaries: t('project3Beneficiaries'),
-      description: t('project3Desc'),
-      status: t('project3Status'),
-      image: '🏥',
-    },
-    {
-      title: t('project4Title'),
-      date: t('project4Date'),
-      amount: '$45,000',
-      beneficiaries: t('project4Beneficiaries'),
-      description: t('project4Desc'),
-      status: t('project4Status'),
-      image: '🧥',
-    },
-  ];
+    fetchCharityData();
+  }, []);
 
-  const partnerOrganizations = [
-    {
-      name: t('org1Name'),
-      focus: t('org1Focus'),
-      established: '1910',
-      description: t('org1Desc'),
-    },
-    {
-      name: t('org2Name'),
-      focus: t('org2Focus'),
-      established: '1993',
-      description: t('org2Desc'),
-    },
-    {
-      name: t('org3Name'),
-      focus: t('org3Focus'),
-      established: '2020',
-      description: t('org3Desc'),
-    },
-    {
-      name: t('org4Name'),
-      focus: t('org4Focus'),
-      established: '1906',
-      description: t('org4Desc'),
-    },
-  ];
+  // Helper function to get icon component based on string name
+  const getIconComponent = (iconName: string, className: string = "w-10 h-10 text-white") => {
+    switch (iconName) {
+      case 'Heart': return <Heart className={className} />;
+      case 'Users': return <Users className={className} />;
+      case 'BookOpen': return <BookOpen className={className} />;
+      case 'Building': return <Building className={className} />;
+      case 'TrendingUp': return <TrendingUp className={className} />;
+      case 'Award': return <Award className={className} />;
+      case 'CheckCircle': return <CheckCircle className={className} />;
+      case 'Target': return <Target className={className} />;
+      default: return <Heart className={className} />;
+    }
+  };
 
   return (
     <div className="bg-gradient-to-b from-amber-50 to-white min-h-screen">
@@ -153,16 +139,34 @@ export default function Charity() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {impactStats.map((stat, index) => (
-              <Card key={index} className="text-center p-8 hover:shadow-2xl transition-all hover-lift border-0 shadow-lg bg-white">
-                <div className={`w-20 h-20 bg-gradient-to-r ${stat.color} rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-glow`}>
-                  <stat.icon className="w-10 h-10 text-white" />
-                </div>
-                <CardTitle className="text-4xl font-bold text-slate-900 mb-2">{stat.number}</CardTitle>
-                <CardDescription className="text-lg font-semibold text-slate-700 mb-3">{stat.label}</CardDescription>
-                <p className="text-slate-600 text-sm">{stat.description}</p>
-              </Card>
-            ))}
+            {isLoading ? (
+              // Skeleton loaders for stats
+              Array(4).fill(0).map((_, index) => (
+                <Card key={index} className="text-center p-8 hover:shadow-2xl transition-all hover-lift border-0 shadow-lg bg-white">
+                  <div className="flex justify-center mb-6">
+                    <Skeleton className="w-20 h-20 rounded-full" />
+                  </div>
+                  <Skeleton className="h-8 w-32 mx-auto mb-2" />
+                  <Skeleton className="h-6 w-48 mx-auto mb-3" />
+                  <Skeleton className="h-4 w-40 mx-auto" />
+                </Card>
+              ))
+            ) : error ? (
+              <div className="col-span-4 text-center text-red-500">
+                {error}
+              </div>
+            ) : (
+              charityData?.stats.map((stat) => (
+                <Card key={stat.id} className="text-center p-8 hover:shadow-2xl transition-all hover-lift border-0 shadow-lg bg-white">
+                  <div className={`w-20 h-20 bg-gradient-to-r ${stat.color} rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-glow`}>
+                    {getIconComponent(stat.icon)}
+                  </div>
+                  <CardTitle className="text-4xl font-bold text-slate-900 mb-2">{stat.value}</CardTitle>
+                  <CardDescription className="text-lg font-semibold text-slate-700 mb-3">{stat.label}</CardDescription>
+                  <p className="text-slate-600 text-sm">{stat.description}</p>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -180,41 +184,79 @@ export default function Charity() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {recentProjects.map((project, index) => (
-              <Card key={index} className="hover:shadow-2xl transition-all hover-lift border-0 shadow-lg bg-white">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-4xl">{project.image}</span>
-                      <div>
-                        <CardTitle className="text-xl font-bold text-slate-900">{project.title}</CardTitle>
-                        <CardDescription className="text-slate-600">{project.date}</CardDescription>
+            {isLoading ? (
+              // Skeleton loaders for projects
+              Array(4).fill(0).map((_, index) => (
+                <Card key={index} className="hover:shadow-2xl transition-all hover-lift border-0 shadow-lg bg-white">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center space-x-3">
+                        <Skeleton className="w-12 h-12 rounded-full" />
+                        <div>
+                          <Skeleton className="h-6 w-40 mb-2" />
+                          <Skeleton className="h-4 w-24" />
+                        </div>
+                      </div>
+                      <Skeleton className="h-6 w-24 rounded-full" />
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <Skeleton className="h-4 w-full mb-4" />
+                    <div className="grid grid-cols-2 gap-4">
+                      <Skeleton className="h-20 rounded-lg" />
+                      <Skeleton className="h-20 rounded-lg" />
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            ) : error ? (
+              <div className="col-span-2 text-center text-red-500">
+                {error}
+              </div>
+            ) : (
+              charityData?.projects.map((project) => (
+                <Card key={project.id} className="hover:shadow-2xl transition-all hover-lift border-0 shadow-lg bg-white">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-4xl">{project.image}</span>
+                        <div>
+                          <CardTitle className="text-xl font-bold text-slate-900">{project.title}</CardTitle>
+                          <CardDescription className="text-slate-600">
+                            {new Date(project.date).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long'
+                            })}
+                          </CardDescription>
+                        </div>
+                      </div>
+                      <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                        project.status === 'COMPLETED' 
+                          ? 'bg-green-100 text-green-800' 
+                          : project.status === 'ONGOING'
+                          ? 'bg-blue-100 text-blue-800'
+                          : 'bg-amber-100 text-amber-800'
+                      }`}>
+                        {t(`projectStatus${project.status}`)}
                       </div>
                     </div>
-                    <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      project.status === t('projectStatusCompleted') 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-blue-100 text-blue-800'
-                    }`}>
-                      {project.status}
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-slate-700 mb-4">{project.description}</p>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-amber-50 p-3 rounded-lg">
+                        <div className="text-2xl font-bold text-amber-600">{project.amount}</div>
+                        <div className="text-sm text-slate-600">{t('amountDistributed')}</div>
+                      </div>
+                      <div className="bg-blue-50 p-3 rounded-lg">
+                        <div className="text-2xl font-bold text-blue-600">{project.beneficiaries}</div>
+                        <div className="text-sm text-slate-600">{t('beneficiaries')}</div>
+                      </div>
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-slate-700 mb-4">{project.description}</p>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-amber-50 p-3 rounded-lg">
-                      <div className="text-2xl font-bold text-amber-600">{project.amount}</div>
-                      <div className="text-sm text-slate-600">{t('amountDistributed')}</div>
-                    </div>
-                    <div className="bg-blue-50 p-3 rounded-lg">
-                      <div className="text-2xl font-bold text-blue-600">{project.beneficiaries}</div>
-                      <div className="text-sm text-slate-600">{t('beneficiaries')}</div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -278,25 +320,54 @@ export default function Charity() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {partnerOrganizations.map((org, index) => (
-              <Card key={index} className="p-6 hover:shadow-xl transition-all hover-lift border-0 shadow-lg bg-white">
-                <CardHeader className="pb-4">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-xl font-bold text-slate-900">{org.name}</CardTitle>
-                      <CardDescription className="text-amber-600 font-semibold">{org.focus}</CardDescription>
+            {isLoading ? (
+              // Skeleton loaders for partners
+              Array(4).fill(0).map((_, index) => (
+                <Card key={index} className="p-6 hover:shadow-xl transition-all hover-lift border-0 shadow-lg bg-white">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <Skeleton className="h-6 w-48 mb-2" />
+                        <Skeleton className="h-4 w-32" />
+                      </div>
+                      <div className="text-right">
+                        <Skeleton className="h-4 w-24 mb-1" />
+                        <Skeleton className="h-5 w-16" />
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-sm text-slate-500">{t('established')}</div>
-                      <div className="font-bold text-slate-900">{org.established}</div>
+                  </CardHeader>
+                  <CardContent>
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6 mt-2" />
+                    <Skeleton className="h-4 w-4/6 mt-2" />
+                  </CardContent>
+                </Card>
+              ))
+            ) : error ? (
+              <div className="col-span-2 text-center text-red-500">
+                {error}
+              </div>
+            ) : (
+              charityData?.partners.map((org) => (
+                <Card key={org.id} className="p-6 hover:shadow-xl transition-all hover-lift border-0 shadow-lg bg-white">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <CardTitle className="text-xl font-bold text-slate-900">{org.name}</CardTitle>
+                        <CardDescription className="text-amber-600 font-semibold">{org.focus}</CardDescription>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-slate-500">{t('established')}</div>
+                        <div className="font-bold text-slate-900">{org.established}</div>
+                      </div>
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-slate-700">{org.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-slate-700">{org.description}</p>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -321,29 +392,28 @@ export default function Charity() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md bg-gradient-to-br from-red-50 to-red-100">
-              <div className="text-4xl mb-3">🏠</div>
-              <CardTitle className="text-lg font-bold text-slate-900 mb-2">{t('allocation1Percent')}</CardTitle>
-              <CardDescription className="text-slate-700">{t('allocation1Label')}</CardDescription>
-            </Card>
-            
-            <Card className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md bg-gradient-to-br from-blue-50 to-blue-100">
-              <div className="text-4xl mb-3">📚</div>
-              <CardTitle className="text-lg font-bold text-slate-900 mb-2">{t('allocation2Percent')}</CardTitle>
-              <CardDescription className="text-slate-700">{t('allocation2Label')}</CardDescription>
-            </Card>
-            
-            <Card className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md bg-gradient-to-br from-green-50 to-green-100">
-              <div className="text-4xl mb-3">🏥</div>
-              <CardTitle className="text-lg font-bold text-slate-900 mb-2">{t('allocation3Percent')}</CardTitle>
-              <CardDescription className="text-slate-700">{t('allocation3Label')}</CardDescription>
-            </Card>
-            
-            <Card className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md bg-gradient-to-br from-amber-50 to-amber-100">
-              <div className="text-4xl mb-3">🚨</div>
-              <CardTitle className="text-lg font-bold text-slate-900 mb-2">{t('allocation4Percent')}</CardTitle>
-              <CardDescription className="text-slate-700">{t('allocation4Label')}</CardDescription>
-            </Card>
+            {isLoading ? (
+              // Skeleton loaders for allocations
+              Array(4).fill(0).map((_, index) => (
+                <Card key={index} className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md">
+                  <Skeleton className="h-12 w-12 rounded-full mx-auto mb-3" />
+                  <Skeleton className="h-6 w-16 mx-auto mb-2" />
+                  <Skeleton className="h-4 w-32 mx-auto" />
+                </Card>
+              ))
+            ) : error ? (
+              <div className="col-span-4 text-center text-red-500">
+                {error}
+              </div>
+            ) : (
+              charityData?.allocations.map((allocation) => (
+                <Card key={allocation.id} className="text-center p-6 hover:shadow-lg transition-all hover-lift border-0 shadow-md bg-gradient-to-br from-amber-50 to-amber-100">
+                  <div className="text-4xl mb-3">{allocation.icon}</div>
+                  <CardTitle className="text-lg font-bold text-slate-900 mb-2">{allocation.percentage}%</CardTitle>
+                  <CardDescription className="text-slate-700">{allocation.category}</CardDescription>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </section>

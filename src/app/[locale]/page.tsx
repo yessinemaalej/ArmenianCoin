@@ -6,6 +6,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTranslations } from 'next-intl';
+import PriceWidget from '@/components/PriceWidget';
+import SwapWidget from '@/components/SwapWidget';
 
 export default function Home() {
   const t = useTranslations('HomePage');
@@ -77,6 +79,29 @@ export default function Home() {
                 <div className="text-2xl font-bold text-amber-300">10%</div>
                 <div className="text-white/80 text-sm">{t('toCharity')}</div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Price and Swap Section */}
+      <section className="py-12 bg-gradient-to-r from-slate-50 to-amber-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            {/* Price Widget */}
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold text-slate-900 text-center lg:text-left">
+                Live ARMT Price
+              </h3>
+              <PriceWidget />
+            </div>
+            
+            {/* Swap Widget */}
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold text-slate-900 text-center lg:text-left">
+                Get ARMT Tokens
+              </h3>
+              <SwapWidget />
             </div>
           </div>
         </div>
@@ -268,18 +293,3 @@ export default function Home() {
     </div>
   );
 }
-
-/*
-import {useTranslations} from 'next-intl';
-import {Link} from '../../i18n/navigation';
- 
-export default function HomePage() {
-  const t = useTranslations('HomePage');
-  return (
-    <div>
-      <h1>{t('title')}</h1>
-      <Link href="/about">{t('about')}</Link>
-    </div>
-  );
-}
-*/
