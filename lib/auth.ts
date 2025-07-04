@@ -69,10 +69,10 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: user.id,
-          email: user.email,
-          name: user.name,
+          email: user.email ?? undefined,
+          name: user.name ?? undefined,
           role: user.role,
-          walletAddress: user.walletAddress
+          walletAddress: user.walletAddress ?? undefined
         }
       }
     }),
@@ -190,10 +190,10 @@ export const authOptions: NextAuthOptions = {
 
           return {
             id: user.id,
-            email: user.email,
-            name: user.name,
+            email: user.email ?? undefined,
+            name: user.name ?? undefined,
             role: user.role,
-            walletAddress: user.walletAddress
+            walletAddress: user.walletAddress ?? undefined
           }
         } catch (error) {
           console.error('Wallet auth error:', error)
