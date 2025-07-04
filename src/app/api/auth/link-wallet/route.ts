@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
     console.log('Normalized wallet address (lowercase for DB):', walletAddress)
 
     // Check if wallet is already linked to another user
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma.user.findFirst({
       where: { walletAddress }
     })
 
