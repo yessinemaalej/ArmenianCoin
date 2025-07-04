@@ -141,7 +141,7 @@ export const authOptions: NextAuthOptions = {
           console.log('Normalized wallet address (lowercase for DB):', walletAddress)
 
           // Find or create user with wallet
-          let user = await prisma.user.findUnique({
+          let user = await prisma.user.findFirst({
             where: { walletAddress }
           })
 
