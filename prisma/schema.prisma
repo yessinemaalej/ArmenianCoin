@@ -50,7 +50,7 @@ model User {
   role              Role      @default(USER)
   
   // Wallet related fields
-  walletAddress     String?   @unique
+  walletAddress     String?   
   walletVerified    Boolean   @default(false)
   
   // 2FA fields

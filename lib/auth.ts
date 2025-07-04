@@ -149,6 +149,7 @@ export const authOptions: NextAuthOptions = {
 
           if (!user) {
             console.log('Creating new user with wallet address')
+            console.log(walletAddress)
             user = await prisma.user.create({
               data: {
                 walletAddress,
@@ -156,6 +157,7 @@ export const authOptions: NextAuthOptions = {
                 name: `User ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
               }
             })
+            console.log(user)
             console.log('New user created:', user.id)
           } else {
             // Update last login and verify wallet

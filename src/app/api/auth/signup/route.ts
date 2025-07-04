@@ -46,6 +46,8 @@ export async function POST(request: NextRequest) {
     // Hash password
     const hashedPassword = await hashPassword(password)
 
+    console.log(walletAddress ? `Wallet address provided: ${walletAddress}` : 'No wallet address provided')
+
     // Create user
     const user = await prisma.user.create({
       data: {
@@ -56,6 +58,7 @@ export async function POST(request: NextRequest) {
         walletVerified: !!walletAddress // Set to true if wallet address is provided
       }
     })
+    console.log('New user created:', user)
 
     // Generate verification token
     const verificationToken = crypto.randomBytes(32).toString('hex')
