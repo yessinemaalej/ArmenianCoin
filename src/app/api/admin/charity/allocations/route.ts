@@ -90,3 +90,6 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
+// Add this export to fix the Vercel build error
+export const dynamic = 'force-dynamic'
