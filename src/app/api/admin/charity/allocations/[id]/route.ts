@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
@@ -181,4 +182,3 @@ export async function DELETE(
 }
 
 // Add this export to fix the Vercel build error
-export const dynamic = 'force-dynamic'
