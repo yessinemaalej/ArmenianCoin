@@ -463,11 +463,11 @@ export default function SettingsPage() {
             </TabsTrigger>
             <TabsTrigger value="wallet" className="flex items-center space-x-2">
               <Wallet className="h-4 w-4" />
-              <span>{t('wallet')}</span>
+              <span>{t('wallet.title')}</span>
             </TabsTrigger>
             <TabsTrigger value="preferences" className="flex items-center space-x-2">
               <Bell className="h-4 w-4" />
-              <span>{t('preferences')}</span>
+              <span>{t('preferences.title')}</span>
             </TabsTrigger>
           </TabsList>
           
@@ -868,211 +868,213 @@ export default function SettingsPage() {
           </TabsContent>
           
           {/* Wallet Tab */}
-          <TabsContent value="wallet">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-  <Wallet className="h-5 w-5" />
-  <span>{t('wallet.title')}</span>
-</CardTitle>
+ <TabsContent value="wallet">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Wallet className="h-5 w-5" />
+            <span>{t('wallet.title')}</span>
+          </CardTitle>
+          <CardDescription>
+            {t('wallet.description')}
+          </CardDescription>
+        </CardHeader>
 
-<CardDescription>
-  {t('wallet.description')}
-</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Wallet Status */}
-                <div className="space-y-2">
-<Label>{t('wallet.walletStatus')}</Label>
-                  {profile?.walletAddress ? (
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <p className="text-slate-900 font-mono text-sm break-all">
-                          {profile.walletAddress}
-                        </p>
-                        {profile.walletVerified ? (
-                          <Badge variant="secondary" className="bg-green-100 text-green-800">
-                            <CheckCircle className="h-3 w-3 mr-1" />
-                            Verified
-                          </Badge>
-                        ) : (
-                          <Badge variant="outline">
-                            <XCircle className="h-3 w-3 mr-1" />
-                            Unverified
-                          </Badge>
-                        )}
-                      </div>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => copyToClipboard(profile.walletAddress!)}
-                      >
-                        <Copy className="h-4 w-4 mr-2" />
-                        Copy Address
-                      </Button>
-                    </div>
+        <CardContent className="space-y-6">
+          {/* Wallet Status */}
+          <div className="space-y-2">
+            <Label>{t('wallet.walletStatus')}</Label>
+            {profile?.walletAddress ? (
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <p className="text-slate-900 font-mono text-sm break-all">
+                    {profile.walletAddress}
+                  </p>
+                  {profile.walletVerified ? (
+                    <Badge variant="secondary" className="bg-green-100 text-green-800">
+                      <CheckCircle className="h-3 w-3 mr-1" />
+                      {t('wallet.verified')}
+                    </Badge>
                   ) : (
-                    <div className="space-y-2">
-                      <p className="text-slate-500">No wallet linked to your account</p>
-                      <Button 
-                        onClick={handleLinkWallet} 
-                        disabled={isLinkingWallet}
-                        className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800"
-                      >
-                        {isLinkingWallet ? (
-                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        ) : (
-                          <Wallet className="h-4 w-4 mr-2" />
-                        )}
-                        Link Wallet
-                      </Button>
-                    </div>
+                    <Badge variant="outline">
+                      <XCircle className="h-3 w-3 mr-1" />
+                      {t('wallet.unverified')}
+                    </Badge>
                   )}
                 </div>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => copyToClipboard(profile.walletAddress!)}
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  {t('wallet.copy')}
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <p className="text-slate-500">{t('wallet.noWalletLinked')}</p>
+                <Button 
+                  onClick={handleLinkWallet} 
+                  disabled={isLinkingWallet}
+                  className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800"
+                >
+                  {isLinkingWallet ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <Wallet className="h-4 w-4 mr-2" />
+                  )}
+                  {t('wallet.linkWallet')}
+                </Button>
+              </div>
+            )}
+          </div>
 
-                <Separator />
+          <Separator />
 
-                {/* Connected Wallet */}
-                {isConnected && address && (
-                  <div className="space-y-4">
-                    <Label>Currently Connected Wallet</Label>
-                    <div className="p-4 bg-slate-50 rounded-lg border">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium text-slate-900">Address</span>
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => copyToClipboard(address)}
-                        >
-                          <Copy className="h-4 w-4" />
-                        </Button>
-                      </div>
-                      <p className="font-mono text-sm break-all text-slate-700">{address}</p>
-                    </div>
-
-                    {/* Link wallet button if not already linked */}
-                    {!profile?.walletAddress && (
-                      <Button 
-                        onClick={handleLinkWallet} 
-                        disabled={isLinkingWallet}
-                        className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800"
-                      >
-                        {isLinkingWallet ? (
-                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        ) : (
-                          <Wallet className="h-4 w-4 mr-2" />
-                        )}
-                        Link This Wallet to Account
-                      </Button>
-                    )}
-                  </div>
-                )}
-
-                {/* Wallet Security */}
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-slate-900">Wallet Security Tips</h3>
-                  <ul className="space-y-2 text-sm text-slate-700">
-                    <li className="flex items-start space-x-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Never share your private keys or seed phrase with anyone</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Always verify website URLs before connecting your wallet</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Consider using a hardware wallet for additional security</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Be cautious of phishing attempts and fake websites</span>
-                    </li>
-                  </ul>
+          {/* Connected Wallet */}
+          {isConnected && address && (
+            <div className="space-y-4">
+              <Label>{t('wallet.connectedWallet')}</Label>
+              <div className="p-4 bg-slate-50 rounded-lg border">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium text-slate-900">{t('wallet.address')}</span>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => copyToClipboard(address)}
+                  >
+                    <Copy className="h-4 w-4" />
+                  </Button>
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                <p className="font-mono text-sm break-all text-slate-700">{address}</p>
+              </div>
+
+              {/* Link wallet button if not already linked */}
+              {!profile?.walletAddress && (
+                <Button 
+                  onClick={handleLinkWallet} 
+                  disabled={isLinkingWallet}
+                  className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800"
+                >
+                  {isLinkingWallet ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <Wallet className="h-4 w-4 mr-2" />
+                  )}
+                  {t('wallet.linkThisWallet')}
+                </Button>
+              )}
+            </div>
+          )}
+
+          {/* Wallet Security */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-slate-900">{t('wallet.securityTipsTitle')}</h3>
+            <ul className="space-y-2 text-sm text-slate-700">
+              <li className="flex items-start space-x-2">
+                <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                <span>{t('wallet.tip1')}</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                <span>{t('wallet.tip2')}</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                <span>{t('wallet.tip3')}</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                <span>{t('wallet.tip4')}</span>
+              </li>
+            </ul>
+          </div>
+        </CardContent>
+      </Card>
+    </TabsContent>
+  
           
           {/* Preferences Tab */}
-          <TabsContent value="preferences">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Bell className="h-5 w-5" />
-                  <span>Notification Preferences</span>
-                </CardTitle>
-                <CardDescription>
-                  Manage how and when we contact you
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Email Notifications */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label htmlFor="email-notifications">Email Notifications</Label>
-                      <p className="text-sm text-slate-500">Receive important account updates via email</p>
-                    </div>
-                    <Switch
-                      id="email-notifications"
-                      checked={emailNotifications}
-                      onCheckedChange={setEmailNotifications}
-                    />
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label htmlFor="security-alerts">Security Alerts</Label>
-                      <p className="text-sm text-slate-500">Get notified about suspicious activity</p>
-                    </div>
-                    <Switch
-                      id="security-alerts"
-                      checked={securityAlerts}
-                      onCheckedChange={setSecurityAlerts}
-                    />
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label htmlFor="marketing-emails">Marketing Emails</Label>
-                      <p className="text-sm text-slate-500">Receive news and promotional offers</p>
-                    </div>
-                    <Switch
-                      id="marketing-emails"
-                      checked={marketingEmails}
-                      onCheckedChange={setMarketingEmails}
-                    />
-                  </div>
-                </div>
+ <TabsContent value="preferences">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Bell className="h-5 w-5" />
+            <span>{t('preferences.title')}</span>
+          </CardTitle>
+          <CardDescription>
+            {t('preferences.description')}
+          </CardDescription>
+        </CardHeader>
 
-                <Separator />
+        <CardContent className="space-y-6">
+          {/* Email Notifications */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label htmlFor="email-notifications">{t('preferences.emailNotifications.label')}</Label>
+                <p className="text-sm text-slate-500">{t('preferences.emailNotifications.description')}</p>
+              </div>
+              <Switch
+                id="email-notifications"
+                checked={emailNotifications}
+                onCheckedChange={setEmailNotifications}
+              />
+            </div>
 
-                {/* Language Preferences */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Language Preference</Label>
-                      <p className="text-sm text-slate-500">Select your preferred language</p>
-                    </div>
-                    <Button variant="outline" className="flex items-center space-x-2">
-                      <Languages className="h-4 w-4" />
-                      <span>Change Language</span>
-                    </Button>
-                  </div>
-                </div>
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label htmlFor="security-alerts">{t('preferences.securityAlerts.label')}</Label>
+                <p className="text-sm text-slate-500">{t('preferences.securityAlerts.description')}</p>
+              </div>
+              <Switch
+                id="security-alerts"
+                checked={securityAlerts}
+                onCheckedChange={setSecurityAlerts}
+              />
+            </div>
 
-                <Button 
-                  onClick={handleUpdatePreferences} 
-                  disabled={isUpdatingPreferences}
-                  className="mt-4"
-                >
-                  {isUpdatingPreferences && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Save Preferences
-                </Button>
-              </CardContent>
-            </Card>
-          </TabsContent>
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label htmlFor="marketing-emails">{t('preferences.marketingEmails.label')}</Label>
+                <p className="text-sm text-slate-500">{t('preferences.marketingEmails.description')}</p>
+              </div>
+              <Switch
+                id="marketing-emails"
+                checked={marketingEmails}
+                onCheckedChange={setMarketingEmails}
+              />
+            </div>
+          </div>
+
+          <Separator />
+
+          {/* Language Preferences */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label>{t('preferences.language.label')}</Label>
+                <p className="text-sm text-slate-500">{t('preferences.language.description')}</p>
+              </div>
+              <Button variant="outline" className="flex items-center space-x-2">
+                <Languages className="h-4 w-4" />
+                <span>{t('preferences.language.change')}</span>
+              </Button>
+            </div>
+          </div>
+
+          <Button
+            onClick={handleUpdatePreferences}
+            disabled={isUpdatingPreferences}
+            className="mt-4"
+          >
+            {isUpdatingPreferences && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {t('preferences.save')}
+          </Button>
+        </CardContent>
+      </Card>
+    </TabsContent>
         </Tabs>
       </div>
     </div>

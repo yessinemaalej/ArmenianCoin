@@ -462,7 +462,8 @@
     "tokenomics": "Tokenomics",
     "charity": "Charity Reports",
     "faq": "FAQ",
-    "contact": "Contact"
+    "contact": "Contact",
+    "more": "More"
   },
   "Footer": {
   "brandSlogan": "\"With heart, soul and by the law\" - Uniting Armenians worldwide through cryptocurrency to support families and children from Artsakh and those in need.",
@@ -611,8 +612,6 @@
   "backToProfile": "Back to Profile",
   "account": "Account",
   "security": "Security",
-  "wallet": "Wallet",
-  "preferences": "Preferences",
   "accountInformation": "Account Information",
   "updatePersonalInfo": "Update your personal information",
   "displayName": "Display Name",
@@ -699,8 +698,8 @@
     "description": "Review your recent account activity",
     "button": "View Login History"
   }
-},
- "wallet": {
+,
+"wallet": {
     "title": "Wallet Management",
     "description": "Connect and manage your Ethereum wallet",
     "walletStatus": "Wallet Status",
@@ -709,11 +708,36 @@
     "connectedWallet": "Currently Connected Wallet",
     "address": "Address",
     "linkThisWallet": "Link This Wallet to Account",
+    "copy": "Copy Address",
+    "verified": "Verified",
+    "unverified": "Unverified",
     "securityTipsTitle": "Wallet Security Tips",
     "tip1": "Never share your private keys or seed phrase with anyone",
     "tip2": "Always verify website URLs before connecting your wallet",
     "tip3": "Consider using a hardware wallet for additional security",
     "tip4": "Be cautious of phishing attempts and fake websites"
+  },
+  "preferences": {
+    "title": "Notification Preferences",
+    "description": "Manage how and when we contact you",
+    "emailNotifications": {
+      "label": "Email Notifications",
+      "description": "Receive important account updates via email"
+    },
+    "securityAlerts": {
+      "label": "Security Alerts",
+      "description": "Get notified about suspicious activity"
+    },
+    "marketingEmails": {
+      "label": "Marketing Emails",
+      "description": "Receive news and promotional offers"
+    },
+    "language": {
+      "label": "Language Preference",
+      "description": "Select your preferred language",
+      "change": "Change Language"
+    },
+    "save": "Save Preferences"
   }
-}
+}}
 

@@ -143,7 +143,7 @@ export default function Header() {
                   size="sm"
                   className="flex items-center space-x-1 text-slate-700 hover:text-amber-700 hover:bg-amber-50 transition-colors"
                 >
-                  <span>More</span>
+                  <span>{t('more')}</span>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -172,7 +172,7 @@ export default function Header() {
                 className="hidden md:flex bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg hover-lift"
               >
                 <ExternalLink className="h-4 w-4 mr-1" />
-                Swap
+                {t("swap")}
               </Button>
             )}
 
