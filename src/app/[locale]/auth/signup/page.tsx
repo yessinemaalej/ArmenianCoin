@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import SignUpForm from '../../../../../components/auth/SignUpForm'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 export const metadata: Metadata = {
   title: 'Sign Up - ArmenianCoin',
@@ -8,6 +9,8 @@ export const metadata: Metadata = {
 }
 
 export default function SignUpPage() {
+  const t = useTranslations('SignUpPage')
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-blue-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -28,8 +31,8 @@ export default function SignUpPage() {
               </div>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Create Account</h1>
-          <p className="text-slate-600">Join the ArmenianCoin community</p>
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">{t('createAccount')}</h1>
+          <p className="text-slate-600">{t('joinCommunity')}</p>
         </div>
 
         <SignUpForm />

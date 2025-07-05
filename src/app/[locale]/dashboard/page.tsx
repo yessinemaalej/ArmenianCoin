@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { useTranslations } from 'next-intl';
+
 import { Badge } from '@/components/ui/badge'
 import { 
   User, 
@@ -41,6 +43,8 @@ interface UserProfile {
 }
 
 export default function DashboardPage() {
+
+const t = useTranslations('DashboardPage');
   const { data: session, status } = useSession()
   const router = useRouter()
   const { isConnected, address, balance, chainId } = useWallet()
@@ -107,8 +111,8 @@ export default function DashboardPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
-          <p className="text-slate-600 mt-2">Welcome back, {profile.name || 'User'}</p>
+          <h1 className="text-3xl font-bold text-slate-900">{t('dashboard')}</h1>
+          <p className="text-slate-600 mt-2">{t('welcomeBack', { name: profile.name || t('user') })}</p>
         </div>
 
         {/* Email Verification Banner */}
@@ -130,7 +134,7 @@ export default function DashboardPage() {
             {/* User Card */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Account</CardTitle>
+                <CardTitle className="text-lg">{t('account')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center space-x-3">
@@ -148,12 +152,12 @@ export default function DashboardPage() {
                     {profile.role === 'ADMIN' ? (
                       <>
                         <Shield className="h-3 w-3 mr-1" />
-                        Admin
+                        {t('admin')}
                       </>
                     ) : (
                       <>
                         <User className="h-3 w-3 mr-1" />
-                        User
+                        {t('user')}
                       </>
                     )}
                   </Badge>
@@ -170,7 +174,7 @@ export default function DashboardPage() {
                     className="w-full justify-start text-amber-700"
                   >
                     <Home className="h-4 w-4 mr-2" />
-                    Dashboard
+                    {t('dashboard')}
                   </Button>
                   <Button 
                     variant="ghost" 
@@ -178,7 +182,7 @@ export default function DashboardPage() {
                     onClick={() => router.push('/profile')}
                   >
                     <User className="h-4 w-4 mr-2" />
-                    Profile
+                    {t('profile')}
                   </Button>
                   <Button 
                     variant="ghost" 
@@ -186,7 +190,7 @@ export default function DashboardPage() {
                     onClick={() => router.push('/profile/settings')}
                   >
                     <Settings className="h-4 w-4 mr-2" />
-                    Settings
+                    {t('settings')}
                   </Button>
                   {profile.role === 'ADMIN' && (
                     <Button 
@@ -195,7 +199,7 @@ export default function DashboardPage() {
                       onClick={() => router.push('/admin')}
                     >
                       <Shield className="h-4 w-4 mr-2" />
-                      Admin Panel
+                       {t('adminPanel')}
                     </Button>
                   )}
                 </nav>
@@ -208,16 +212,16 @@ export default function DashboardPage() {
             {/* Welcome Card */}
             <Card className="bg-gradient-to-r from-amber-500 to-amber-600 text-white">
               <CardContent className="p-6">
-                <h2 className="text-2xl font-bold mb-2">Welcome to ArmenianCoin</h2>
+                <h2 className="text-2xl font-bold mb-2">{t('welcomeCardTitle')}</h2>
                 <p className="opacity-90 mb-4">
-                  Your account is ready. Explore the features and manage your ARMT tokens.
+                 {t('welcomeCardDesc')}
                 </p>
                 <Button 
                   variant="secondary" 
                   className="bg-white text-amber-700 hover:bg-amber-50"
                 >
                   <CreditCard className="h-4 w-4 mr-2" />
-                  Buy ARMT Tokens
+                  {t('buyTokens')}
                 </Button>
               </CardContent>
             </Card>
@@ -226,23 +230,23 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-slate-500">Account Status</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-500"> {t('accountStatus')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">
-{profile.emailVerified ? 'Verified' : <EmailVerificationBanner />}
+{profile.emailVerified ? t('verified') : <EmailVerificationBanner />}
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">Email verification</p>
+                  <p className="text-xs text-slate-500 mt-1"> {t('emailVerification')}</p>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-slate-500">Wallet Status</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-500"> {t('walletStatus')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">
-                    {profile.walletAddress ? 'Linked' : 'Not Linked'}
+                    {profile.walletAddress ? t('linked') : t('notLinked')}
                   </div>
                   <p className="text-xs text-slate-500 mt-1">
                     {profile.walletAddress 
@@ -254,14 +258,14 @@ export default function DashboardPage() {
               
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-slate-500">Security Level</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-500"> {t('securityLevel')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">
-                    {profile.twoFactorEnabled ? 'Enhanced' : 'Basic'}
+                    {profile.twoFactorEnabled ? t('enhanced') : t('basic')}
                   </div>
                   <p className="text-xs text-slate-500 mt-1">
-                    {profile.twoFactorEnabled ? '2FA is active' : 'Enable 2FA for better security'}
+                    {profile.twoFactorEnabled ? t('twoFactorActive') : t('enable2fa')}
                   </p>
                 </CardContent>
               </Card>
@@ -273,29 +277,29 @@ export default function DashboardPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Wallet className="h-5 w-5" />
-                    <span>Connected Wallet</span>
+                    <span> {t('connectedWallet')}</span>
                   </CardTitle>
                   <CardDescription>
-                    Your Ethereum wallet information
+                     {t('walletInfo')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-slate-500">Address</p>
+                      <p className="text-sm font-medium text-slate-500"> {t('address')}</p>
                       <p className="text-sm font-mono break-all">{address}</p>
                     </div>
                     
                     {balance && (
                       <div className="space-y-2">
-                        <p className="text-sm font-medium text-slate-500">Balance</p>
+                        <p className="text-sm font-medium text-slate-500"> {t('balance')}</p>
                         <p className="text-slate-900 font-semibold">{formatBalance(balance)}</p>
                       </div>
                     )}
                     
                     {chainId && (
                       <div className="space-y-2">
-                        <p className="text-sm font-medium text-slate-500">Network</p>
+                        <p className="text-sm font-medium text-slate-500"> {t('network')}</p>
                         <p className="text-slate-900">
                           {chainId === 1 ? 'Ethereum Mainnet' : `Chain ID: ${chainId}`}
                         </p>
@@ -307,7 +311,7 @@ export default function DashboardPage() {
                   {!profile.walletAddress && address && (
                     <Button className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800">
                       <LinkIcon className="h-4 w-4 mr-2" />
-                      Link Wallet to Account
+                       {t('linkWalletToAccount')}
                     </Button>
                   )}
                 </CardContent>
@@ -319,10 +323,10 @@ export default function DashboardPage() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <BarChart className="h-5 w-5" />
-                  <span>Token Activity</span>
+                  <span>{t('tokenActivity')}</span>
                 </CardTitle>
                 <CardDescription>
-                  Your ARMT token activity and transactions
+                   {t('tokenActivityDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent>

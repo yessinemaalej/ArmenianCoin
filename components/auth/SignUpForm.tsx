@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { z } from 'zod'
 import { useWallet } from '@/contexts/WalletContext'
 import { Checkbox } from '@/components/ui/checkbox'
+import { useTranslations } from 'next-intl';
 
 const signupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -24,6 +25,8 @@ const signupSchema = z.object({
 })
 
 export default function SignUpForm() {
+    const t = useTranslations('SignUpPage');
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -111,35 +114,33 @@ export default function SignUpForm() {
     }
   }
 
-  if (success) {
+ if (success) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center space-x-2 text-green-700">
             <CheckCircle className="h-5 w-5" />
-            <span>Account Created!</span>
+            <span>{t('accountCreated')}</span>
           </CardTitle>
           <CardDescription>
-            Your account has been created successfully
+            {t('accountCreatedDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Alert className="border-green-200 bg-green-50">
             <AlertDescription className="text-green-800">
-              We've sent a verification email to <strong>{email}</strong>. 
-              Please check your inbox and click the verification link to activate your account.
+              {t('verificationSent', { email })}
             </AlertDescription>
           </Alert>
-          
           <div className="flex flex-col space-y-2">
             <Button asChild>
               <Link href="/auth/signin">
-                Sign In
+                {t('signIn')}
               </Link>
             </Button>
             <Button variant="outline" asChild>
               <Link href="/">
-                Return to Home
+                {t('returnHome')}
               </Link>
             </Button>
           </div>
@@ -149,20 +150,20 @@ export default function SignUpForm() {
   }
 
   return (
-    <Card>
+ <Card>
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <User className="h-5 w-5" />
-          <span>Sign Up</span>
+          <span>{t('signUp')}</span>
         </CardTitle>
         <CardDescription>
-          Create a new account to access ArmenianCoin
+          {t('signUpDesc')}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSignUp} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">{t('name')}</Label>
             <Input
               id="name"
               type="text"
@@ -172,9 +173,8 @@ export default function SignUpForm() {
               disabled={isLoading}
             />
           </div>
-          
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('email')}</Label>
             <Input
               id="email"
               type="email"
@@ -184,9 +184,8 @@ export default function SignUpForm() {
               disabled={isLoading}
             />
           </div>
-          
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('password')}</Label>
             <div className="relative">
               <Input
                 id="password"
@@ -196,7 +195,7 @@ export default function SignUpForm() {
                 required
                 disabled={isLoading}
               />
-              <Button
+ <Button
                 type="button"
                 variant="ghost"
                 size="sm"
@@ -212,9 +211,8 @@ export default function SignUpForm() {
               </Button>
             </div>
           </div>
-          
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Label htmlFor="confirmPassword">{t('confirmPassword')}</Label>
             <div className="relative">
               <Input
                 id="confirmPassword"
@@ -226,36 +224,33 @@ export default function SignUpForm() {
               />
             </div>
           </div>
-
           {/* Wallet Linking Option */}
           <div className="flex items-center space-x-2 pt-2">
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="linkWallet"
-                checked={linkWallet}
-                onCheckedChange={(checked) => setLinkWallet(checked === true)}
-                disabled={isLoading}
-              />
-              <Label htmlFor="linkWallet" className="text-sm cursor-pointer">
-                <div className="flex items-center">
-                  <Wallet className="h-4 w-4 mr-1 text-amber-600" />
-                  Link my wallet to this account
-                </div>
-              </Label>
-            </div>
+            <Checkbox
+              id="linkWallet"
+              checked={linkWallet}
+              onCheckedChange={(checked) => setLinkWallet(checked === true)}
+              disabled={isLoading}
+            />
+            <Label htmlFor="linkWallet" className="text-sm cursor-pointer">
+              <div className="flex items-center">
+                <Wallet className="h-4 w-4 mr-1 text-amber-600" />
+                {t('linkWallet')}
+              </div>
+            </Label>
           </div>
 
-          {linkWallet && !isConnected && (
+         {linkWallet && !isConnected && (
             <Alert className="bg-amber-50 border-amber-200">
               <AlertDescription className="text-amber-800">
                 {isConnecting ? (
                   <div className="flex items-center">
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Connecting wallet...
+                    {t('connectingWallet')}
                   </div>
                 ) : (
                   <>
-                    You'll need to connect your wallet during signup. Make sure you have MetaMask installed.
+                    {t('connectWalletPrompt')}
                     <Button 
                       variant="outline" 
                       size="sm" 
@@ -263,43 +258,39 @@ export default function SignUpForm() {
                       onClick={connectWallet}
                     >
                       <Wallet className="h-4 w-4 mr-1" />
-                      Connect Wallet
+                      {t('connectWallet')}
                     </Button>
                   </>
                 )}
               </AlertDescription>
             </Alert>
           )}
-
           {linkWallet && isConnected && address && (
             <Alert className="bg-green-50 border-green-200">
               <AlertDescription className="text-green-800 flex items-center">
                 <CheckCircle className="h-4 w-4 mr-2" />
-                Wallet connected: {address.slice(0, 6)}...{address.slice(-4)}
+                {t('walletConnected', { address: `${address.slice(0, 6)}...${address.slice(-4)}` })}
               </AlertDescription>
             </Alert>
           )}
-
           {error && (
             <Alert variant="destructive">
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
-
           <Button 
             type="submit" 
             className="w-full" 
             disabled={isLoading || (linkWallet && !isConnected && !isConnecting)}
           >
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Create Account
+            {t('createAccount')}
           </Button>
         </form>
-
         <div className="mt-4 text-center text-sm">
-          Already have an account?{' '}
+          {t('alreadyHaveAccount')}{' '}
           <Link href="/auth/signin" className="text-amber-600 hover:underline">
-            Sign in
+            {t('signIn')}
           </Link>
         </div>
       </CardContent>

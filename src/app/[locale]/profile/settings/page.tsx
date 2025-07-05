@@ -12,6 +12,8 @@ import { Switch } from '@/components/ui/switch'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from '@/components/ui/badge'
+import { useTranslations } from 'next-intl';
+
 import { 
   Shield, 
   Key, 
@@ -54,6 +56,7 @@ interface UserProfile {
 }
 
 export default function SettingsPage() {
+  const t = useTranslations('SettingsPage');
   const { data: session, status, update } = useSession()
   const router = useRouter()
   const { isConnected, address, connectWallet } = useWallet()
@@ -419,8 +422,8 @@ export default function SettingsPage() {
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">Account Settings</h1>
-            <p className="text-slate-600 mt-2">Manage your account preferences and security</p>
+            <h1 className="text-3xl font-bold text-slate-900">{t('accountSettings')}</h1>
+            <p className="text-slate-600 mt-2">{t('manageAccount')}</p>
           </div>
           <Button 
             variant="outline" 
@@ -428,7 +431,7 @@ export default function SettingsPage() {
             className="flex items-center space-x-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Back to Profile</span>
+            <span>{t('backToProfile')}</span>
           </Button>
         </div>
 
@@ -452,19 +455,19 @@ export default function SettingsPage() {
           <TabsList className="grid grid-cols-4 mb-8">
             <TabsTrigger value="account" className="flex items-center space-x-2">
               <User className="h-4 w-4" />
-              <span>Account</span>
+              <span>{t('account')}</span>
             </TabsTrigger>
             <TabsTrigger value="security" className="flex items-center space-x-2">
               <Shield className="h-4 w-4" />
-              <span>Security</span>
+              <span>{t('security')}</span>
             </TabsTrigger>
             <TabsTrigger value="wallet" className="flex items-center space-x-2">
               <Wallet className="h-4 w-4" />
-              <span>Wallet</span>
+              <span>{t('wallet')}</span>
             </TabsTrigger>
             <TabsTrigger value="preferences" className="flex items-center space-x-2">
               <Bell className="h-4 w-4" />
-              <span>Preferences</span>
+              <span>{t('preferences')}</span>
             </TabsTrigger>
           </TabsList>
           
@@ -474,16 +477,16 @@ export default function SettingsPage() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <User className="h-5 w-5" />
-                  <span>Account Information</span>
+                  <span>{t('accountInformation')}</span>
                 </CardTitle>
                 <CardDescription>
-                  Update your personal information
+                  {t('updatePersonalInfo')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Name */}
                 <div className="space-y-2">
-                  <Label htmlFor="name">Display Name</Label>
+                  <Label htmlFor="name">{t('displayName')}</Label>
                   <div className="flex space-x-2">
                     <Input
                       id="name"
@@ -499,7 +502,7 @@ export default function SettingsPage() {
                       {isUpdatingName ? (
                         <Loader2 className="h-4 w-4 animate-spin mr-2" />
                       ) : null}
-                      Update Name
+                      {t('updateName')}
                     </Button>
                   </div>
                 </div>
@@ -508,18 +511,18 @@ export default function SettingsPage() {
 
                 {/* Email */}
                 <div className="space-y-2">
-                  <Label>Email Address</Label>
+                  <Label>{t('emailAddress')}</Label>
                   <div className="flex items-center space-x-2">
-                    <p className="text-slate-900 font-medium">{profile?.email || 'Not set'}</p>
+                    <p className="text-slate-900 font-medium">{profile?.email || t('notSet')}</p>
                     {profile?.emailVerified ? (
                       <Badge variant="secondary" className="bg-green-100 text-green-800">
                         <CheckCircle className="h-3 w-3 mr-1" />
-                        Verified
+                        {t('verified')}
                       </Badge>
                     ) : (
                       <Badge variant="destructive">
                         <XCircle className="h-3 w-3 mr-1" />
-                        Unverified
+                        {t('unverified')}
                       </Badge>
                     )}
                   </div>
@@ -531,7 +534,7 @@ export default function SettingsPage() {
                       onClick={() => router.push('/auth/resend-verification')}
                     >
                       <Mail className="h-4 w-4 mr-1" />
-                      Resend Verification Email
+                      {t('resendVerification')}
                     </Button>
                   )}
                 </div>
@@ -541,18 +544,18 @@ export default function SettingsPage() {
                 {/* Account Details */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label>Account Type</Label>
+                    <Label>{t('accountType')}</Label>
                     <div>
                       <Badge variant={profile?.role === 'ADMIN' ? 'destructive' : 'secondary'}>
                         {profile?.role === 'ADMIN' ? (
                           <>
                             <Shield className="h-3 w-3 mr-1" />
-                            Admin
+                            {t('admin')}
                           </>
                         ) : (
                           <>
                             <User className="h-3 w-3 mr-1" />
-                            User
+                            {t('user')}
                           </>
                         )}
                       </Badge>
@@ -560,9 +563,9 @@ export default function SettingsPage() {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label>Account Created</Label>
+                    <Label>{t('accountCreated')}</Label>
                     <p className="text-slate-900">
-                      {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'Unknown'}
+                      {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : t('unknown')}
                     </p>
                   </div>
                 </div>
@@ -572,10 +575,10 @@ export default function SettingsPage() {
                 {/* Delete Account */}
                 <div className="pt-4">
                   <Button variant="destructive">
-                    Delete Account
+                    {t('deleteAccount')}
                   </Button>
                   <p className="text-xs text-slate-500 mt-2">
-                    This action is permanent and cannot be undone. All your data will be permanently deleted.
+                   {t('deleteWarning')}
                   </p>
                 </div>
               </CardContent>
@@ -590,16 +593,16 @@ export default function SettingsPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Key className="h-5 w-5" />
-                    <span>Change Password</span>
+                    <span>{t('changePassword')}</span>
                   </CardTitle>
                   <CardDescription>
-                    Update your account password
+{t('updatePassword')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleChangePassword} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="currentPassword">Current Password</Label>
+                      <Label htmlFor="currentPassword">{t('currentPassword')}</Label>
                       <div className="relative">
                         <Input
                           id="currentPassword"
@@ -612,7 +615,7 @@ export default function SettingsPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="newPassword">New Password</Label>
+                      <Label htmlFor="newPassword">{t('newPassword')}</Label>
                       <div className="relative">
                         <Input
                           id="newPassword"
@@ -626,7 +629,7 @@ export default function SettingsPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="confirmPassword">Confirm New Password</Label>
+                      <Label htmlFor="confirmPassword">{t('confirmNewPassword')}</Label>
                       <div className="relative">
                         <Input
                           id="confirmPassword"
@@ -654,7 +657,7 @@ export default function SettingsPage() {
 
                     <Button type="submit" disabled={isChangingPassword}>
                       {isChangingPassword && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Change Password
+                      {t('changePassword')}
                     </Button>
                   </form>
                 </CardContent>
@@ -665,18 +668,18 @@ export default function SettingsPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Smartphone className="h-5 w-5" />
-                    <span>Two-Factor Authentication</span>
+                    <span>{t('twoFactorAuth')}</span>
                   </CardTitle>
                   <CardDescription>
-                    Add an extra layer of security to your account
+                   {t('addSecurity')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">2FA Status</p>
+                      <p className="font-medium">{t('2faStatus')}</p>
                       <p className="text-sm text-slate-600">
-                        {twoFactorEnabled ? 'Two-factor authentication is enabled' : 'Two-factor authentication is disabled'}
+                        {twoFactorEnabled ? t('2faEnabled'): t('2faDisabled')}
                       </p>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -693,169 +696,174 @@ export default function SettingsPage() {
                   {!twoFactorEnabled && !twoFactorSetup && (
                     <div className="space-y-4">
                       <p className="text-sm text-slate-600">
-                        Enable two-factor authentication to secure your account with an authenticator app.
+                       {t('enable2fa')}
                       </p>
                       <Button onClick={handleSetup2FA} disabled={isSettingUp2FA}>
                         {isSettingUp2FA && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                        Setup 2FA
+                        {t('setup2fa')}
                       </Button>
                     </div>
                   )}
 
-                  {twoFactorSetup && (
-                    <div className="space-y-6">
-                      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                        <h4 className="font-semibold text-amber-800 mb-2">Setup Instructions</h4>
-                        <ol className="text-sm text-amber-700 space-y-1 list-decimal list-inside">
-                          <li>Install an authenticator app (Google Authenticator, Authy, etc.)</li>
-                          <li>Scan the QR code below or enter the secret manually</li>
-                          <li>Enter the 6-digit code from your app to verify</li>
-                          <li>Save your backup codes in a secure location</li>
-                        </ol>
-                      </div>
+{twoFactorSetup && (
+  <div className="space-y-6">
+    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+      <h4 className="font-semibold text-amber-800 mb-2">
+        {t('2fa.setupTitle')}
+      </h4>
+      <ol className="text-sm text-amber-700 space-y-1 list-decimal list-inside">
+        <li>{t('2fa.step1')}</li>
+        <li>{t('2fa.step2')}</li>
+        <li>{t('2fa.step3')}</li>
+        <li>{t('2fa.step4')}</li>
+      </ol>
+    </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-4">
-                          <div>
-                            <Label>QR Code</Label>
-                            <div className="mt-2 p-4 bg-white rounded-lg border">
-                              <img src={twoFactorSetup.qrCode} alt="2FA QR Code" className="mx-auto" />
-                            </div>
-                          </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-4">
+        <div>
+          <Label>{t('2fa.qrCode')}</Label>
+          <div className="mt-2 p-4 bg-white rounded-lg border">
+            <img src={twoFactorSetup.qrCode} alt="2FA QR Code" className="mx-auto" />
+          </div>
+        </div>
 
-                          <div>
-                            <Label>Manual Entry Secret</Label>
-                            <div className="flex mt-2">
-                              <Input
-                                value={twoFactorSetup.secret}
-                                readOnly
-                                className="font-mono text-sm"
-                              />
-                              <Button
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                className="ml-2"
-                                onClick={() => copyToClipboard(twoFactorSetup.secret)}
-                              >
-                                <Copy className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
+        <div>
+          <Label>{t('2fa.manualSecret')}</Label>
+          <div className="flex mt-2">
+            <Input
+              value={twoFactorSetup.secret}
+              readOnly
+              className="font-mono text-sm"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="ml-2"
+              onClick={() => copyToClipboard(twoFactorSetup.secret)}
+            >
+              <Copy className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
 
-                        <div className="space-y-4">
-                          <div>
-                            <Label>Backup Codes</Label>
-                            <div className="mt-2 p-4 bg-slate-50 rounded-lg border">
-                              <div className="grid grid-cols-2 gap-2 text-sm font-mono">
-                                {twoFactorSetup.backupCodes.map((code, index) => (
-                                  <div key={index} className="text-center py-1">
-                                    {code}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              className="mt-2 w-full"
-                              onClick={downloadBackupCodes}
-                            >
-                              <Download className="h-4 w-4 mr-2" />
-                              Download Backup Codes
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
+      <div className="space-y-4">
+        <div>
+          <Label>{t('2fa.backupCodes')}</Label>
+          <div className="mt-2 p-4 bg-slate-50 rounded-lg border">
+            <div className="grid grid-cols-2 gap-2 text-sm font-mono">
+              {twoFactorSetup.backupCodes.map((code, index) => (
+                <div key={index} className="text-center py-1">
+                  {code}
+                </div>
+              ))}
+            </div>
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-2 w-full"
+            onClick={downloadBackupCodes}
+          >
+            <Download className="h-4 w-4 mr-2" />
+            {t('2fa.downloadBackup')}
+          </Button>
+        </div>
+      </div>
+    </div>
 
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="twoFactorCode">Verification Code</Label>
-                          <Input
-                            id="twoFactorCode"
-                            type="text"
-                            value={twoFactorCode}
-                            onChange={(e) => setTwoFactorCode(e.target.value)}
-                            placeholder="Enter 6-digit code"
-                            maxLength={6}
-                            className="mt-2"
-                          />
-                        </div>
-                        <div className="flex space-x-2">
-                          <Button onClick={handleEnable2FA} disabled={isEnabling2FA}>
-                            {isEnabling2FA && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Enable 2FA
-                          </Button>
-                          <Button
-                            variant="outline"
-                            onClick={() => {
-                              setTwoFactorSetup(null)
-                              setTwoFactorCode('')
-                            }}
-                          >
-                            Cancel
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+    <div className="space-y-4">
+      <div>
+        <Label htmlFor="twoFactorCode">{t('2fa.verificationCode')}</Label>
+        <Input
+          id="twoFactorCode"
+          type="text"
+          value={twoFactorCode}
+          onChange={(e) => setTwoFactorCode(e.target.value)}
+          placeholder={t('2fa.placeholder')}
+          maxLength={6}
+          className="mt-2"
+        />
+      </div>
+      <div className="flex space-x-2">
+        <Button onClick={handleEnable2FA} disabled={isEnabling2FA}>
+          {isEnabling2FA && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {t('2fa.enable')}
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            setTwoFactorSetup(null)
+            setTwoFactorCode('')
+          }}
+        >
+          {t('common.cancel')}
+        </Button>
+      </div>
+    </div>
+  </div>
+)}
 
-                  {twoFactorEnabled && (
-                    <div className="space-y-4">
-                      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <p className="text-green-800 text-sm">
-                          Two-factor authentication is active. Your account is protected with an additional security layer.
-                        </p>
-                      </div>
-                      
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="disable2FACode">Enter 2FA Code or Backup Code to Disable</Label>
-                          <Input
-                            id="disable2FACode"
-                            type="text"
-                            value={twoFactorCode}
-                            onChange={(e) => setTwoFactorCode(e.target.value)}
-                            placeholder="Enter 6-digit code or backup code"
-                            className="mt-2"
-                          />
-                        </div>
-                        <Button 
-                          variant="destructive" 
-                          onClick={handleDisable2FA} 
-                          disabled={isDisabling2FA}
-                        >
-                          {isDisabling2FA && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                          Disable 2FA
-                        </Button>
-                      </div>
-                    </div>
-                  )}
+{twoFactorEnabled && (
+  <div className="space-y-4">
+    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+      <p className="text-green-800 text-sm">
+        {t('2fa.enabledMessage')}
+      </p>
+    </div>
+
+    <div className="space-y-4">
+      <div>
+        <Label htmlFor="disable2FACode">
+          {t('2fa.disablePrompt')}
+        </Label>
+        <Input
+          id="disable2FACode"
+          type="text"
+          value={twoFactorCode}
+          onChange={(e) => setTwoFactorCode(e.target.value)}
+          placeholder={t('2fa.disablePlaceholder')}
+          className="mt-2"
+        />
+      </div>
+      <Button 
+        variant="destructive" 
+        onClick={handleDisable2FA} 
+        disabled={isDisabling2FA}
+      >
+        {isDisabling2FA && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {t('2fa.disable')}
+      </Button>
+    </div>
+  </div>
+)}
                 </CardContent>
               </Card>
 
               {/* Login History */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Clock className="h-5 w-5" />
-                    <span>Login History</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Review your recent account activity
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button 
-                    onClick={() => router.push('/profile/login-history')}
-                    className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800"
-                  >
-                    View Login History
-                  </Button>
-                </CardContent>
-              </Card>
+     <Card>
+  <CardHeader>
+    <CardTitle className="flex items-center space-x-2">
+      <Clock className="h-5 w-5" />
+      <span>{t('loginHistory.title')}</span>
+    </CardTitle>
+    <CardDescription>
+      {t('loginHistory.description')}
+    </CardDescription>
+  </CardHeader>
+  <CardContent>
+    <Button 
+      onClick={() => router.push('/profile/login-history')}
+      className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800"
+    >
+      {t('loginHistory.button')}
+    </Button>
+  </CardContent>
+</Card>
+
             </div>
           </TabsContent>
           
@@ -864,17 +872,18 @@ export default function SettingsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Wallet className="h-5 w-5" />
-                  <span>Wallet Management</span>
-                </CardTitle>
-                <CardDescription>
-                  Connect and manage your Ethereum wallet
-                </CardDescription>
+  <Wallet className="h-5 w-5" />
+  <span>{t('wallet.title')}</span>
+</CardTitle>
+
+<CardDescription>
+  {t('wallet.description')}
+</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Wallet Status */}
                 <div className="space-y-2">
-                  <Label>Wallet Status</Label>
+<Label>{t('wallet.walletStatus')}</Label>
                   {profile?.walletAddress ? (
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">

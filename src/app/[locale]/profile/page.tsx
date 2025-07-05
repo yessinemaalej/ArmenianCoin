@@ -43,9 +43,12 @@ interface UserProfile {
   createdAt: Date
   lastLoginAt?: Date
 }
+import { useTranslations } from 'next-intl';
+
 
 export default function ProfilePage() {
   const { data: session, status, update } = useSession()
+  const t = useTranslations('ProfilePage')
   const router = useRouter()
   const { isConnected, address, connectWallet } = useWallet()
   
@@ -230,8 +233,8 @@ const handleLinkWallet = async () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900">My Profile</h1>
-          <p className="text-slate-600 mt-2">Manage your account information and settings</p>
+<h1 className="text-3xl font-bold text-slate-900">{t('title')}</h1>
+          <p className="text-slate-600 mt-2">{t('subtitle')}</p>
         </div>
 
         {/* Email Verification Banner */}
@@ -256,21 +259,21 @@ const handleLinkWallet = async () => {
 
         <div className="space-y-6">
           {/* Profile Card */}
-          <Card>
+ <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <User className="h-5 w-5" />
-                <span>Profile Information</span>
+                <span>{t('profileInfo')}</span>
               </CardTitle>
               <CardDescription>
-                Your personal information and account details
+                {t('profileInfoDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Name */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="name">{t('name')}</Label>
                   {!isEditingName && (
                     <Button 
                       variant="ghost" 
@@ -279,11 +282,10 @@ const handleLinkWallet = async () => {
                       className="h-8 px-2 text-slate-600"
                     >
                       <Edit className="h-4 w-4 mr-1" />
-                      Edit
+                      {t('edit')}
                     </Button>
                   )}
                 </div>
-                
                 {isEditingName ? (
                   <div className="flex space-x-2">
                     <Input
@@ -303,7 +305,7 @@ const handleLinkWallet = async () => {
                       ) : (
                         <>
                           <Save className="h-4 w-4 mr-1" />
-                          Save
+                          {t('save')}
                         </>
                       )}
                     </Button>
@@ -316,38 +318,38 @@ const handleLinkWallet = async () => {
                       disabled={isUpdatingName}
                       size="sm"
                     >
-                      Cancel
+                      {t('cancel')}
                     </Button>
                   </div>
                 ) : (
-                  <p className="text-slate-900 font-medium">{profile.name || 'Not set'}</p>
+                  <p className="text-slate-900 font-medium">{profile.name || t('notSet')}</p>
                 )}
               </div>
+
 
               <Separator />
 
               {/* Email */}
-              <div className="space-y-2">
-                <Label>Email Address</Label>
+ <div className="space-y-2">
+                <Label>{t('email')}</Label>
                 {profile.email ? (
                   <div className="flex items-center space-x-2">
                     <p className="text-slate-900 font-medium">{profile.email}</p>
                     {profile.emailVerified ? (
                       <Badge variant="secondary" className="bg-green-100 text-green-800">
                         <CheckCircle className="h-3 w-3 mr-1" />
-                        Verified
+                        {t('verified')}
                       </Badge>
                     ) : (
-                      <><Badge variant="destructive">
+                      <Badge variant="destructive">
                         <XCircle className="h-3 w-3 mr-1" />
-                        Unverified
-                      </Badge>      </>
-
+                        {t('unverified')}
+                      </Badge>
                     )}
                   </div>
                 ) : (
                   <div className="flex items-center space-x-2">
-                    <p className="text-slate-500">No email address added</p>
+                    <p className="text-slate-500">{t('noEmail')}</p>
                     <Button 
                       variant="outline" 
                       size="sm" 
@@ -355,7 +357,7 @@ const handleLinkWallet = async () => {
                       className="ml-2"
                     >
                       <Plus className="h-4 w-4 mr-1" />
-                      Add Email
+                      {t('addEmail')}
                     </Button>
                   </div>
                 )}
@@ -367,7 +369,7 @@ const handleLinkWallet = async () => {
                     onClick={() => router.push('/auth/resend-verification')}
                   >
                     <Mail className="h-4 w-4 mr-1" />
-                    Resend Verification Email
+                    {t('resendVerification')}
                   </Button>
                 )}
               </div>
@@ -375,8 +377,8 @@ const handleLinkWallet = async () => {
               <Separator />
 
               {/* Wallet */}
-              <div className="space-y-2">
-                <Label>Wallet Address</Label>
+ <div className="space-y-2">
+                <Label>{t('wallet')}</Label>
                 {profile.walletAddress ? (
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
@@ -386,19 +388,19 @@ const handleLinkWallet = async () => {
                       {profile.walletVerified ? (
                         <Badge variant="secondary" className="bg-green-100 text-green-800">
                           <CheckCircle className="h-3 w-3 mr-1" />
-                          Verified
+                          {t('verified')}
                         </Badge>
                       ) : (
                         <Badge variant="outline">
                           <XCircle className="h-3 w-3 mr-1" />
-                          Unverified
+                          {t('unverified')}
                         </Badge>
                       )}
                     </div>
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    <p className="text-slate-500">No wallet linked to your account</p>
+                    <p className="text-slate-500">{t('noWallet')}</p>
                     <Button 
                       onClick={handleLinkWallet} 
                       disabled={isLinkingWallet}
@@ -409,7 +411,7 @@ const handleLinkWallet = async () => {
                       ) : (
                         <Wallet className="h-4 w-4 mr-2" />
                       )}
-                      Link Wallet
+                      {t('linkWallet')}
                     </Button>
                   </div>
                 )}
@@ -418,20 +420,20 @@ const handleLinkWallet = async () => {
               <Separator />
 
               {/* Account Details */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label>Account Type</Label>
+                  <Label>{t('accountType')}</Label>
                   <div>
                     <Badge variant={profile.role === 'ADMIN' ? 'destructive' : 'secondary'}>
                       {profile.role === 'ADMIN' ? (
                         <>
                           <Shield className="h-3 w-3 mr-1" />
-                          Admin
+                          {t('admin')}
                         </>
                       ) : (
                         <>
                           <User className="h-3 w-3 mr-1" />
-                          User
+                          {t('user')}
                         </>
                       )}
                     </Badge>
@@ -439,43 +441,44 @@ const handleLinkWallet = async () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Two-Factor Authentication</Label>
+                  <Label>{t('twoFactor')}</Label>
                   <div className="flex items-center space-x-2">
                     {profile.twoFactorEnabled ? (
                       <Badge variant="secondary" className="bg-green-100 text-green-800">
                         <CheckCircle className="h-3 w-3 mr-1" />
-                        Enabled
+                        {t('enabled')}
                       </Badge>
                     ) : (
                       <Badge variant="outline">
                         <XCircle className="h-3 w-3 mr-1" />
-                        Disabled
+                        {t('disabled')}
                       </Badge>
                     )}
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Account Created</Label>
+                  <Label>{t('createdAt')}</Label>
                   <p className="text-slate-900">{formatDate(profile.createdAt)}</p>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Last Login</Label>
+                  <Label>{t('lastLogin')}</Label>
                   <p className="text-slate-900">{formatDate(profile.lastLoginAt)}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
+
           {/* Quick Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Button 
               onClick={() => router.push('/profile/settings')}
               className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800"
             >
               <Settings className="h-4 w-4 mr-2" />
-              Security Settings
+              {t('securitySettings')}
             </Button>
             
             <Button 
@@ -484,7 +487,7 @@ const handleLinkWallet = async () => {
               className="border-amber-600 text-amber-700 hover:bg-amber-50"
             >
               <History className="h-4 w-4 mr-2" />
-              View Login History
+              {t('loginHistory')}
             </Button>
           </div>
         </div>

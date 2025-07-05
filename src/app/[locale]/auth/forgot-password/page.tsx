@@ -10,12 +10,14 @@ import { Mail, Loader2, CheckCircle, ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { z } from 'zod'
+import { useTranslations } from 'next-intl';
 
 const forgotPasswordSchema = z.object({
   email: z.string().email('Invalid email address')
 })
 
 export default function ForgotPasswordPage() {
+  const t = useTranslations('ForgotPasswordPage');
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
@@ -78,34 +80,32 @@ export default function ForgotPasswordPage() {
               </div>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Forgot Password</h1>
-          <p className="text-slate-600">Reset your ArmenianCoin account password</p>
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">{t('title')}</h1>
+          <p className="text-slate-600">{t('subtitle')}</p>
         </div>
 
-        <Card>
+ <Card>
           {success ? (
             <>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-green-700">
                   <CheckCircle className="h-5 w-5" />
-                  <span>Check Your Email</span>
+                  <span>{t('checkEmailTitle')}</span>
                 </CardTitle>
                 <CardDescription>
-                  We've sent password reset instructions
+                  {t('checkEmailDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <Alert className="border-green-200 bg-green-50">
                   <AlertDescription className="text-green-800">
-                    If an account exists for <strong>{email}</strong>, we've sent instructions to reset your password.
-                    Please check your inbox and spam folder.
+                    {t('checkEmailAlert', { email })}
                   </AlertDescription>
                 </Alert>
-                
                 <div className="flex flex-col space-y-2">
                   <Button asChild>
                     <Link href="/auth/signin">
-                      Return to Sign In
+                      {t('returnToSignIn')}
                     </Link>
                   </Button>
                 </div>
@@ -116,16 +116,16 @@ export default function ForgotPasswordPage() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Mail className="h-5 w-5" />
-                  <span>Reset Password</span>
+                  <span>{t('resetPasswordTitle')}</span>
                 </CardTitle>
                 <CardDescription>
-                  Enter your email address and we'll send you a link to reset your password
+                  {t('resetPasswordDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">{t('email')}</Label>
                     <Input
                       id="email"
                       type="email"
@@ -133,7 +133,7 @@ export default function ForgotPasswordPage() {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       disabled={isLoading}
-                      placeholder="Enter your email address"
+                      placeholder={t('emailPlaceholder')}
                     />
                   </div>
 
@@ -145,14 +145,14 @@ export default function ForgotPasswordPage() {
 
                   <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Send Reset Link
+                    {t('sendResetLink')}
                   </Button>
                 </form>
 
                 <div className="mt-4 text-center text-sm">
                   <Link href="/auth/signin" className="text-amber-600 hover:underline flex items-center justify-center">
                     <ArrowLeft className="h-4 w-4 mr-1" />
-                    Back to Sign In
+                    {t('backToSignIn')}
                   </Link>
                 </div>
               </CardContent>

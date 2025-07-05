@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { SiweMessage } from 'siwe'
 import { useWallet } from '@/contexts/WalletContext'
 import { getAddress } from 'ethers'
+import { useTranslations } from 'next-intl';
 
 export default function SignInForm() {
   const [email, setEmail] = useState('')
@@ -23,7 +24,8 @@ export default function SignInForm() {
   const [isWalletLoading, setIsWalletLoading] = useState(false)
   const [error, setError] = useState('')
   const [needsTwoFactor, setNeedsTwoFactor] = useState(false)
-  
+    const t = useTranslations('SignInPage');
+
   const router = useRouter()
   const { connectWallet, address, isConnected } = useWallet()
 
@@ -154,22 +156,23 @@ console.log('Original wallet address:', walletAddress)
   }
 
   return (
-    <div className="max-w-md mx-auto space-y-6">
+
+ <div className="max-w-md mx-auto space-y-6">
       {/* Email Sign In */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Mail className="h-5 w-5" />
-            <span>Sign In with Email</span>
+            <span>{t('signInWithEmail')}</span>
           </CardTitle>
           <CardDescription>
-            Enter your email and password to access your account
+            {t('emailSignInDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleEmailSignIn} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('email')}</Label>
               <Input
                 id="email"
                 type="email"
@@ -179,9 +182,8 @@ console.log('Original wallet address:', walletAddress)
                 disabled={isLoading}
               />
             </div>
-            
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('password')}</Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -208,61 +210,56 @@ console.log('Original wallet address:', walletAddress)
               </div>
             </div>
 
-            {needsTwoFactor && (
+           {needsTwoFactor && (
               <div className="space-y-2">
-                <Label htmlFor="twoFactorCode">2FA Code</Label>
+                <Label htmlFor="twoFactorCode">{t('twoFactorCode')}</Label>
                 <Input
                   id="twoFactorCode"
                   type="text"
                   value={twoFactorCode}
                   onChange={(e) => setTwoFactorCode(e.target.value)}
-                  placeholder="Enter 6-digit code"
+                  placeholder={t('twoFactorPlaceholder')}
                   maxLength={6}
                   required
                   disabled={isLoading}
                 />
               </div>
             )}
-
             {error && (
               <Alert variant="destructive">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sign In
+              {t('signIn')}
             </Button>
           </form>
-
           <div className="mt-4 text-center text-sm">
             <Link href="/auth/forgot-password" className="text-amber-600 hover:underline">
-              Forgot your password?
+              {t('forgotPassword')}
             </Link>
           </div>
         </CardContent>
       </Card>
-
       {/* Divider */}
-      <div className="relative">
+ <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">Or</span>
+          <span className="bg-background px-2 text-muted-foreground">{t('or')}</span>
         </div>
       </div>
-
       {/* Wallet Sign In */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Wallet className="h-5 w-5" />
-            <span>Sign In with Wallet</span>
+            <span>{t('signInWithWallet')}</span>
           </CardTitle>
           <CardDescription>
-            Connect your MetaMask wallet to sign in securely
+            {t('walletSignInDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -274,16 +271,15 @@ console.log('Original wallet address:', walletAddress)
           >
             {isWalletLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             <Wallet className="mr-2 h-4 w-4" />
-            {isConnected ? 'Sign In with Wallet' : 'Connect Wallet'}
+            {isConnected ? t('signInWithWallet') : t('connectWallet')}
           </Button>
         </CardContent>
       </Card>
-
       {/* Sign Up Link */}
       <div className="text-center text-sm">
-        Don't have an account?{' '}
+        {t('noAccount')}{' '}
         <Link href="/auth/signup" className="text-amber-600 hover:underline">
-          Sign up
+          {t('signUp')}
         </Link>
       </div>
     </div>
