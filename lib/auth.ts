@@ -119,14 +119,14 @@ export const authOptions: NextAuthOptions = {
           console.log('Verifying SIWE message with options:', {
             signature: credentials.signature.substring(0, 10) + '...',
             domain: nextAuthUrl.host,
-            nonce: csrfToken || 'no-csrf-token'
+            nonce: siwe.nonce || 'no-csrf-token'
           })
           
           // Verify the signature without any address conversion
           const result = await siwe.verify({
             signature: credentials.signature,
             domain: nextAuthUrl.host,
-            nonce: csrfToken
+            nonce: siwe.nonce
           })
 
           console.log('SIWE verification result:', result)
@@ -137,12 +137,12 @@ export const authOptions: NextAuthOptions = {
           }
 
           // For database operations, always use lowercase
-          const walletAddress = siwe.address.toLowerCase()
+          const walletAddress = getAddress(siwe.address).toLowerCase()
           console.log('Normalized wallet address (lowercase for DB):', walletAddress)
 
           // Find or create user with wallet
           let user = await prisma.user.findFirst({
-            where: { walletAddress }
+            where: { walletAddress:walletAddress.toLocaleLowerCase() }
           })
 
           console.log('Existing user found?', !!user)

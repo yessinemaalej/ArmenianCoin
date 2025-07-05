@@ -18,7 +18,7 @@ export default function SignUpPage() {
               <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-400 via-red-500 to-blue-600 p-1 animate-pulse-glow shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                   <Image
-                    src="/logonobg.png"
+                    src="/logonobb.png"
                     alt="ArmenianCoin Logo"
                     width={56}
                     height={56}

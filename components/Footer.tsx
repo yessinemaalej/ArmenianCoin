@@ -16,8 +16,8 @@ export default function Footer() {
                 <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-400 via-red-500 to-blue-600 p-0.5">
                   <div className="w-full h-full rounded-full overflow-hidden bg-slate-900 flex items-center justify-center">
                     <Image
-                      src="/logonobg.png"
-                      alt="ArmenianCoin logonobg"
+                      src="/logonobb.png"
+                      alt="ArmenianCoin logonobb"
                       width={32}
                       height={32}
                       className="object-contain rounded-full"

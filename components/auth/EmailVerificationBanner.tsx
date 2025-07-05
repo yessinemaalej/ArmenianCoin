@@ -64,8 +64,7 @@ export default function EmailVerificationBanner() {
             </span>
           ) : (
             <span className="flex items-center">
-              <Mail className="h-4 w-4 mr-2" />
-              Your email address ({session.user.email}) is not verified.
+              <Mail className="h-4 w-4 mr-2" /> Not verified
             </span>
           )}
           {error && (
@@ -86,14 +85,14 @@ export default function EmailVerificationBanner() {
             {isResending && <Loader2 className="mr-2 h-3 w-3 animate-spin" />}
             {success ? 'Sent' : 'Resend'}
           </Button>
-          <Button 
+          {/*<Button 
             variant="ghost" 
             size="sm" 
             onClick={() => setDismissed(true)}
             className="text-amber-700 hover:bg-amber-100"
           >
             Dismiss
-          </Button>
+          </Button>*/}
         </div>
       </div>
     </Alert>

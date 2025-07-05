@@ -112,7 +112,6 @@ export default function DashboardPage() {
         </div>
 
         {/* Email Verification Banner */}
-        <EmailVerificationBanner />
 
         {/* Wallet Email Prompt */}
         <WalletEmailPrompt />
@@ -231,7 +230,7 @@ export default function DashboardPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">
-                    {profile.emailVerified ? 'Verified' : 'Unverified'}
+{profile.emailVerified ? 'Verified' : <EmailVerificationBanner />}
                   </div>
                   <p className="text-xs text-slate-500 mt-1">Email verification</p>
                 </CardContent>

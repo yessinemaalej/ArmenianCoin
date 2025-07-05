@@ -90,8 +90,8 @@ export default function Contact() {
               <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-300 via-red-400 to-blue-500 p-1 animate-pulse-glow shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                   <Image
-                    src="/logonobg.png"
-                    alt="ArmenianCoin logonobg"
+                    src="/logonobb.png"
+                    alt="ArmenianCoin logonobb"
                     width={72}
                     height={72}
                     className="object-contain rounded-full"

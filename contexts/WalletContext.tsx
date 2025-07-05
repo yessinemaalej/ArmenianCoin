@@ -10,7 +10,7 @@ interface WalletContextType {
   chainId: number | null;
   isConnecting: boolean;
   error: string | null;
-  connectWallet: () => Promise<void>;
+  connectWallet: () => Promise<string>;
   disconnectWallet: () => void;
   switchToEthereum: () => Promise<void>;
 }
@@ -112,46 +112,45 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
     }
   };
 
-  const connectWallet = async () => {
-    if (typeof window === 'undefined' || !window.ethereum) {
-      const errorMsg = 'MetaMask is not installed. Please install MetaMask to continue.';
-      setError(errorMsg);
-      // Redirect to MetaMask download
-      window.open('https://metamask.io/download/', '_blank');
-      throw new Error(errorMsg);
+const connectWallet = async (): Promise<string> => {
+  if (typeof window === 'undefined' || !window.ethereum) {
+    const errorMsg = 'MetaMask is not installed. Please install MetaMask to continue.';
+    setError(errorMsg);
+    window.open('https://metamask.io/download/', '_blank');
+    throw new Error(errorMsg);
+  }
+
+  setIsConnecting(true);
+  setError(null);
+
+  try {
+    const accounts = await window.ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+
+    if (accounts.length > 0) {
+      await updateWalletInfo(accounts[0]);
+      return accounts[0];
+    } else {
+      throw new Error('No accounts found');
+    }
+  } catch (error: any) {
+    console.error('Error connecting wallet:', error);
+    let errorMessage = 'Failed to connect wallet';
+
+    if (error.code === 4001) {
+      errorMessage = 'Connection rejected by user';
+    } else if (error.message) {
+      errorMessage = error.message;
     }
 
-    setIsConnecting(true);
-    setError(null);
+    setError(errorMessage);
+    throw error;
+  } finally {
+    setIsConnecting(false);
+  }
+};
 
-    try {
-      // Request account access
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-
-      if (accounts.length > 0) {
-        await updateWalletInfo(accounts[0]);
-        return accounts[0]; // Return the connected address
-      } else {
-        throw new Error('No accounts found');
-      }
-    } catch (error: any) {
-      console.error('Error connecting wallet:', error);
-      let errorMessage = 'Failed to connect wallet';
-      
-      if (error.code === 4001) {
-        errorMessage = 'Connection rejected by user';
-      } else if (error.message) {
-        errorMessage = error.message;
-      }
-      
-      setError(errorMessage);
-      throw error; // Re-throw to allow handling in components
-    } finally {
-      setIsConnecting(false);
-    }
-  };
 
   const disconnectWallet = () => {
     setIsConnected(false);

@@ -66,20 +66,18 @@ export default function SignInForm() {
     setError('')
 
     try {
-      if (!isConnected) {
-        console.log('Wallet not connected, connecting...')
-        await connectWallet()
-      }
+const walletAddress = isConnected ? address : await connectWallet()
+if (!walletAddress) throw new Error('No wallet address available')
 
-      if (!address) {
-        console.error('No wallet address available after connection')
-        throw new Error('No wallet address available')
-      }
 
-      console.log('Original wallet address:', address)
+
+console.log('Original wallet address:', walletAddress)
+
+
+      console.log('Original wallet address:', walletAddress)
       
       // Format address using EIP-55 checksum
-      const checksummedAddress = getAddress(address)
+      const checksummedAddress = getAddress(walletAddress)
       console.log('Checksummed address (EIP-55):', checksummedAddress)
       
       // Get CSRF token for nonce
@@ -119,7 +117,7 @@ export default function SignInForm() {
       console.log('Requesting signature from address:', checksummedAddress)
       const signature = await window.ethereum.request({
         method: 'personal_sign',
-        params: [messageString, address] // Use original address for signing
+        params: [messageString, walletAddress] // Use original address for signing
       })
       console.log('Signature received:', signature.substring(0, 20) + '...')
 

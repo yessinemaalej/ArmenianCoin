@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     console.log('Parsing SIWE message')
     const siwe = new SiweMessage(JSON.parse(message))
     console.log('SIWE message parsed:', {
-      address: siwe.address,
+      address: siwe.address.toLocaleLowerCase(),
       domain: siwe.domain,
       statement: siwe.statement
     })
@@ -50,9 +50,13 @@ export async function POST(request: NextRequest) {
     
     console.log('Verifying signature')
     // Verify without any address conversion
-    const result = await siwe.verify({ 
-      signature
-    })
+const result = await siwe.verify({
+  signature,
+  domain: siwe.domain,
+  nonce: siwe.nonce
+
+});
+
 
     console.log('Verification result:', result)
 

@@ -30,7 +30,7 @@ import { useWallet } from '@/contexts/WalletContext'
 import { SiweMessage } from 'siwe'
 import EmailVerificationBanner from '@/components/auth/EmailVerificationBanner'
 import WalletEmailPrompt from '@/components/auth/WalletEmailPrompt'
-
+import { getAddress } from 'ethers'
 interface UserProfile {
   id: string
   email?: string
@@ -127,80 +127,79 @@ export default function ProfilePage() {
     }
   }
 
-  const handleLinkWallet = async () => {
-    if (!isConnected) {
-      try {
-        await connectWallet()
-      } catch (error) {
-        setError('Failed to connect wallet')
-        return
-      }
+const handleLinkWallet = async () => {
+  setIsLinkingWallet(true)
+  setError('')
+  setMessage('')
+
+  try {
+    let walletAddress = address
+
+    if (!isConnected || !walletAddress) {
+      walletAddress = await connectWallet() // <--- get it directly
     }
 
-    if (!address) {
+    if (!walletAddress) {
       setError('No wallet address available')
       return
     }
 
-    setIsLinkingWallet(true)
-    setError('')
-    setMessage('')
+    const checksummedAddress = getAddress(walletAddress)
+    console.log(checksummedAddress)
+    const generateNonce = () =>
+  Array.from(crypto.getRandomValues(new Uint8Array(16)))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
 
-    try {
-      // Create SIWE message
-      const message = new SiweMessage({
-        domain: window.location.host,
-        address,
-        statement: 'Link wallet to ArmenianCoin account',
-        uri: window.location.origin,
-        version: '1',
-        chainId: 1,
-        nonce: Math.random().toString(36).substring(7)
-      })
+    const message = new SiweMessage({
+      domain: window.location.host,
+      address: checksummedAddress,
+      statement: 'Link wallet to ArmenianCoin account',
+      uri: window.location.origin,
+      version: '1',
+      chainId: 1,
+      nonce: generateNonce(),
+    })
 
-      const messageString = message.prepareMessage()
+    const messageString = message.prepareMessage()
 
-      // Request signature
-      if (!window.ethereum) {
-        throw new Error('MetaMask not found')
-      }
-
-      const signature = await window.ethereum.request({
-        method: 'personal_sign',
-        params: [messageString, address]
-      })
-
-      // Link wallet
-      const response = await fetch('/api/auth/link-wallet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: JSON.stringify(message),
-          signature
-        })
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        
-        // Update profile
-        await fetchProfile()
-        
-        // Update session
-        await update({ walletAddress: data.walletAddress })
-        
-        setMessage('Wallet linked successfully')
-      } else {
-        const data = await response.json()
-        setError(data.error || 'Failed to link wallet')
-      }
-    } catch (error: any) {
-      console.error('Link wallet error:', error)
-      setError(error.message || 'Failed to link wallet')
-    } finally {
-      setIsLinkingWallet(false)
+    if (!window.ethereum) {
+      throw new Error('MetaMask not found')
     }
+
+    const signature = await window.ethereum.request({
+      method: 'personal_sign',
+      params: [messageString, checksummedAddress],
+    })
+
+    const response = await fetch('/api/auth/link-wallet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: JSON.stringify(message),
+        signature,
+      }),
+    })
+
+    if (response.ok) {
+      const data = await response.json()
+
+      await fetchProfile()
+      await update({ walletAddress: data.walletAddress })
+
+      setMessage('Wallet linked successfully')
+    } else {
+      const data = await response.json()
+      setError(data.error || 'Failed to link wallet')
+    }
+  } catch (error: any) {
+    console.error('Link wallet error:', error)
+    setError(error.message || 'Failed to link wallet')
+  } finally {
+    setIsLinkingWallet(false)
   }
+}
+
 
   const formatDate = (date: Date | string | null | undefined) => {
     if (!date) return 'Never'
@@ -236,7 +235,6 @@ export default function ProfilePage() {
         </div>
 
         {/* Email Verification Banner */}
-        <EmailVerificationBanner />
 
         {/* Wallet Email Prompt */}
         <WalletEmailPrompt />
@@ -340,10 +338,11 @@ export default function ProfilePage() {
                         Verified
                       </Badge>
                     ) : (
-                      <Badge variant="destructive">
+                      <><Badge variant="destructive">
                         <XCircle className="h-3 w-3 mr-1" />
                         Unverified
-                      </Badge>
+                      </Badge>      </>
+
                     )}
                   </div>
                 ) : (
