@@ -51,7 +51,7 @@ export default function SwapWidget() {
           <span>Swap for ARMT</span>
         </CardTitle>
         <CardDescription className="text-amber-100">
-          Exchange ETH for ArmenianCoin tokens
+          Exchange ETH for ArmenianToken tokens
         </CardDescription>
       </CardHeader>
       

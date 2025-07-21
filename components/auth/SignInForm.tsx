@@ -90,7 +90,7 @@ console.log('Original wallet address:', walletAddress)
       const message = new SiweMessage({
         domain: window.location.host,
         address: checksummedAddress, // Use checksummed address
-        statement: 'Sign in to ArmenianCoin',
+        statement: 'Sign in to ArmenianToken',
         uri: window.location.origin,
         version: '1',
         chainId: 1,

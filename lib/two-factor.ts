@@ -14,8 +14,8 @@ export async function generateTwoFactorSecret(userId: string) {
   }
 
   const secret = speakeasy.generateSecret({
-    name: `ArmenianCoin (${user.email || user.name})`,
-    issuer: 'ArmenianCoin',
+    name: `ArmenianToken (${user.email || user.name})`,
+    issuer: 'ArmenianToken',
     length: 32
   })
 

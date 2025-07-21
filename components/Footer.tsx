@@ -16,8 +16,8 @@ export default function Footer() {
                 <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-400 via-red-500 to-blue-600 p-0.5">
                   <div className="w-full h-full rounded-full overflow-hidden bg-slate-900 flex items-center justify-center">
                     <Image
-                      src="/logonobb.png"
-                      alt="ArmenianCoin logonobb"
+                      src="/logo.png"
+                      alt="ArmenianToken logo"
                       width={32}
                       height={32}
                       className="object-contain rounded-full"
@@ -26,7 +26,7 @@ export default function Footer() {
                 </div>
               </div>
               <span className="font-bold text-xl bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
-                ArmenianCoin
+                ArmenianToken
               </span>
             </div>
             <p className="text-sm leading-6 text-slate-400">
@@ -115,7 +115,7 @@ export default function Footer() {
         <div className="border-t border-slate-700 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-center md:text-left text-slate-400">
-              © 2025 ArmenianCoin (ARMT). {t('copyright')}
+              © 2025 ArmenianToken (ARMT). {t('copyright')}
             </p>
             <div className="text-xs text-slate-500 max-w-md text-center md:text-right">
               <p className="mb-2">

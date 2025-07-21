@@ -157,7 +157,7 @@ const handleLinkWallet = async () => {
     const message = new SiweMessage({
       domain: window.location.host,
       address: checksummedAddress,
-      statement: 'Link wallet to ArmenianCoin account',
+      statement: 'Link wallet to ArmenianToken account',
       uri: window.location.origin,
       version: '1',
       chainId: 1,

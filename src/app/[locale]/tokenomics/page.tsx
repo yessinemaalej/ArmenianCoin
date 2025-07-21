@@ -7,8 +7,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
-  title: 'Tokenomics, Whitepaper & Roadmap - ArmenianCoin (ARMT)',
-  description: 'Complete documentation for ArmenianCoin (ARMT): tokenomics, technical whitepaper, and development roadmap. Learn about our mission to support Armenian families.',
+  title: 'Tokenomics, Whitepaper & Roadmap - ArmenianToken (ARMT)',
+  description: 'Complete documentation for ArmenianToken (ARMT): tokenomics, technical whitepaper, and development roadmap. Learn about our mission to support Armenian families.',
 };
 
 export default function TokenomicsWhitepaperRoadmap() {
@@ -206,7 +206,7 @@ export default function TokenomicsWhitepaperRoadmap() {
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                   <Image
                     src="/logo.png"
-                    alt="ArmenianCoin Logo"
+                    alt="ArmenianToken Logo"
                     width={72}
                     height={72}
                     className="object-contain rounded-full"

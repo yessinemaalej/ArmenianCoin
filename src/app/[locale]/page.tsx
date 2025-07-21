@@ -28,8 +28,8 @@ export default function Home() {
                 <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-300 via-red-400 to-blue-500 p-1 animate-pulse-glow shadow-2xl">
                   <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                     <Image
-                      src="/logonobb.png"
-                      alt="ArmenianCoin logonobb"
+                      src="/logo.png"
+                      alt="ArmenianToken logo"
                       width={120}
                       height={120}
                       className="object-contain rounded-full"
@@ -84,11 +84,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Price and Swap Section */}
+      {/* Price and Swap Section 
       <section className="py-12 bg-gradient-to-r from-slate-50 to-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Price Widget */}
+            {/*
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-slate-900 text-center lg:text-left">
                 Live ARMT Price
@@ -97,7 +98,7 @@ export default function Home() {
             </div>
             
             {/* Swap Widget */}
-            <div className="space-y-4">
+            {/*<div className="space-y-4">
               <h3 className="text-2xl font-bold text-slate-900 text-center lg:text-left">
                 Get ARMT Tokens
               </h3>
@@ -105,7 +106,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section>*/}
 
       <section className="py-20 bg-gradient-to-br from-amber-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,8 +121,8 @@ export default function Home() {
           <div className="relative mb-16">
             <div className="w-full max-w-5xl mx-auto">
               <Image
-                src="/22A99A88-036C-4A09-A7C4-953B436D32CF.jpeg"
-                alt="Global Armenian Community United Around ArmenianCoin"
+                src="/people.png"
+                alt="Global Armenian Community United Around ArmenianToken"
                 width={1000}
                 height={750}
                 className="w-full h-auto rounded-3xl shadow-2xl hover-lift"

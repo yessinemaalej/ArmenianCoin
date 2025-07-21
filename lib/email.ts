@@ -19,11 +19,11 @@ export async function sendVerificationEmail(email: string, token: string) {
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: 'Verify your ArmenianCoin account',
+    subject: 'Verify your ArmenianToken account',
     html: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #D4AF37;">ArmenianCoin</h1>
+          <h1 style="color: #D4AF37;">ArmenianToken</h1>
           <p style="color: #666;">Verify your email address</p>
         </div>
         
@@ -63,11 +63,11 @@ export async function sendPasswordResetEmail(email: string, token: string) {
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: 'Reset your ArmenianCoin password',
+    subject: 'Reset your ArmenianToken password',
     html: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #D4AF37;">ArmenianCoin</h1>
+          <h1 style="color: #D4AF37;">ArmenianToken</h1>
           <p style="color: #666;">Reset your password</p>
         </div>
         
@@ -105,11 +105,11 @@ export async function sendTwoFactorEmail(email: string, code: string) {
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: 'Your ArmenianCoin 2FA code',
+    subject: 'Your ArmenianToken 2FA code',
     html: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #D4AF37;">ArmenianCoin</h1>
+          <h1 style="color: #D4AF37;">ArmenianToken</h1>
           <p style="color: #666;">Two-Factor Authentication</p>
         </div>
         
@@ -138,18 +138,18 @@ export async function sendWelcomeEmail(email: string, name: string) {
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: 'Welcome to ArmenianCoin',
+    subject: 'Welcome to ArmenianToken',
     html: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #D4AF37;">ArmenianCoin</h1>
+          <h1 style="color: #D4AF37;">ArmenianToken</h1>
           <p style="color: #666;">Welcome to our community</p>
         </div>
         
         <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
           <p>Hello ${name || 'there'},</p>
-          <p>Welcome to ArmenianCoin! We're thrilled to have you join our community.</p>
-          <p>With ArmenianCoin, you can:</p>
+          <p>Welcome to ArmenianToken! We're thrilled to have you join our community.</p>
+          <p>With ArmenianToken, you can:</p>
           <ul style="margin-top: 10px; margin-bottom: 10px;">
             <li>Support Armenian families and children in need</li>
             <li>Be part of a global Armenian community</li>
@@ -171,7 +171,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
         </div>
         
         <p style="font-size: 12px; color: #999; text-align: center;">
-          "With heart, soul and by the law" - ArmenianCoin Team
+          "With heart, soul and by the law" - ArmenianToken Team
         </p>
       </div>
     `
@@ -185,16 +185,16 @@ export async function sendWalletLinkEmail(email: string, walletAddress: string) 
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: 'Wallet Linked to Your ArmenianCoin Account',
+    subject: 'Wallet Linked to Your ArmenianToken Account',
     html: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #D4AF37;">ArmenianCoin</h1>
+          <h1 style="color: #D4AF37;">ArmenianToken</h1>
           <p style="color: #666;">Wallet Linked Successfully</p>
         </div>
         
         <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-          <p>Your Ethereum wallet has been successfully linked to your ArmenianCoin account.</p>
+          <p>Your Ethereum wallet has been successfully linked to your ArmenianToken account.</p>
           <div style="background: #f0f0f0; padding: 10px; border-radius: 4px; margin: 15px 0; font-family: monospace; word-break: break-all;">
             ${walletAddress}
           </div>
@@ -222,16 +222,16 @@ export async function sendSecurityAlertEmail(email: string, activity: string, ip
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: 'Security Alert - ArmenianCoin Account',
+    subject: 'Security Alert - ArmenianToken Account',
     html: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #D4AF37;">ArmenianCoin</h1>
+          <h1 style="color: #D4AF37;">ArmenianToken</h1>
           <p style="color: #666;">Security Alert</p>
         </div>
         
         <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-          <p>We detected the following activity on your ArmenianCoin account:</p>
+          <p>We detected the following activity on your ArmenianToken account:</p>
           <div style="background: #fff0f0; border-left: 4px solid #ff5555; padding: 10px; margin: 15px 0;">
             <p style="margin: 0; color: #333;"><strong>${activity}</strong></p>
             ${ipAddress ? `<p style="margin: 5px 0 0; font-size: 14px; color: #666;">IP Address: ${ipAddress}</p>` : ''}
@@ -253,7 +253,7 @@ export async function sendSecurityAlertEmail(email: string, activity: string, ip
         </div>
         
         <p style="font-size: 12px; color: #999; text-align: center;">
-          ArmenianCoin takes your account security seriously. If you need assistance, please contact our support team.
+          ArmenianToken takes your account security seriously. If you need assistance, please contact our support team.
         </p>
       </div>
     `

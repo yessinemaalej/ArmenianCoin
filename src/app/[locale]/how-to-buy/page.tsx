@@ -7,8 +7,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
-  title: 'How to Buy ARMT - ArmenianCoin Purchase Guide',
-  description: 'Complete step-by-step guide to purchasing ArmenianCoin (ARMT). Learn how to create a MetaMask wallet, fund it, and buy ARMT tokens safely.',
+  title: 'How to Buy ARMT - ArmenianToken Purchase Guide',
+  description: 'Complete step-by-step guide to purchasing ArmenianToken (ARMT). Learn how to create a MetaMask wallet, fund it, and buy ARMT tokens safely.',
 };
 
 export default function HowToBuy() {
@@ -80,8 +80,8 @@ export default function HowToBuy() {
               <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-300 via-red-400 to-blue-500 p-1 animate-pulse-glow shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                   <Image
-                    src="/logonobb.png"
-                    alt="ArmenianCoin logonobb"
+                    src="/logo.png"
+                    alt="ArmenianToken logo"
                     width={72}
                     height={72}
                     className="object-contain rounded-full"
@@ -276,7 +276,7 @@ export default function HowToBuy() {
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-slate-900 mb-2">{t('tokenName')}</h4>
-                    <p className="text-slate-700 font-mono bg-slate-50 p-2 rounded">ArmenianCoin</p>
+                    <p className="text-slate-700 font-mono bg-slate-50 p-2 rounded">ArmenianToken</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-900 mb-2">{t('symbol')}</h4>

@@ -68,7 +68,7 @@ export default function PriceWidget() {
             </div>
             <div>
               <h3 className="font-bold text-slate-900">ARMT</h3>
-              <p className="text-xs text-slate-600">ArmenianCoin</p>
+              <p className="text-xs text-slate-600">ArmenianToken</p>
             </div>
           </div>
           {getTrendIcon()}

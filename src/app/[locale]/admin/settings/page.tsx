@@ -28,8 +28,8 @@ export default function AdminSettingsPage() {
   const router = useRouter()
   
   // Site settings
-  const [siteName, setSiteName] = useState('ArmenianCoin')
-  const [siteDescription, setSiteDescription] = useState('ArmenianCoin (ARMT) - With Heart, Soul and By the Law')
+  const [siteName, setSiteName] = useState('ArmenianToken')
+  const [siteDescription, setSiteDescription] = useState('ArmenianToken (ARMT) - With Heart, Soul and By the Law')
   const [maintenanceMode, setMaintenanceMode] = useState(false)
   
   // Email settings

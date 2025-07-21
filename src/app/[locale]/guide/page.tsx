@@ -7,8 +7,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
-  title: "Beginner's Guide - ArmenianCoin (ARMT)",
-  description: 'Complete step-by-step guide to getting started with ArmenianCoin. Learn how to create a MetaMask wallet, fund it, and buy ARMT tokens safely.',
+  title: "Beginner's Guide - ArmenianToken (ARMT)",
+  description: 'Complete step-by-step guide to getting started with ArmenianToken. Learn how to create a MetaMask wallet, fund it, and buy ARMT tokens safely.',
 };
 
 export default function Guide() {
@@ -79,8 +79,8 @@ export default function Guide() {
               <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-300 via-red-400 to-blue-500 p-1 animate-pulse-glow shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                   <Image
-                    src="/logonobb.png"
-                    alt="ArmenianCoin logonobb"
+                    src="/logo.png"
+                    alt="ArmenianToken logo"
                     width={56}
                     height={56}
                     className="object-contain rounded-full"

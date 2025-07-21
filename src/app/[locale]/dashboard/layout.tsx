@@ -4,8 +4,8 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 
 export const metadata: Metadata = {
-  title: 'Dashboard - ArmenianCoin',
-  description: 'ArmenianCoin user dashboard'
+  title: 'Dashboard - ArmenianToken',
+  description: 'ArmenianToken user dashboard'
 }
 
 export default async function DashboardLayout({

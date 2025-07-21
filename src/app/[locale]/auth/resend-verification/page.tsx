@@ -68,8 +68,8 @@ export default function ResendVerificationPage() {
               <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-400 via-red-500 to-blue-600 p-1 animate-pulse-glow shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                   <Image
-                    src="/logonobb.png"
-                    alt="ArmenianCoin Logo"
+                    src="/logo.png"
+                    alt="ArmenianToken Logo"
                     width={56}
                     height={56}
                     className="object-contain rounded-full"

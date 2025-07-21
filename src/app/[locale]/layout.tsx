@@ -11,14 +11,14 @@ import {routing} from '../../i18n/routing';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'ArmenianCoin (ARMT) - With Heart, Soul and By the Law',
+  title: 'ArmenianToken (ARMT) - With Heart, Soul and By the Law',
   description:
-    'ArmenianCoin unites Armenians worldwide to support families and children from Artsakh and those in need. 10% of funds go to verified charity support. Built on Ethereum with 1B ARMT total supply.',
+    'ArmenianToken unites Armenians worldwide to support families and children from Artsakh and those in need. 10% of funds go to verified charity support. Built on Ethereum with 1B ARMT total supply.',
   keywords:
-    'ArmenianCoin, ARMT, cryptocurrency, Armenia, Artsakh, diaspora, blockchain, charity, humanitarian, MetaMask',
-  authors: [{ name: 'ArmenianCoin Team' }],
+    'ArmenianToken, ARMT, cryptocurrency, Armenia, Artsakh, diaspora, blockchain, charity, humanitarian, MetaMask',
+  authors: [{ name: 'ArmenianToken Team' }],
   openGraph: {
-    title: 'ArmenianCoin (ARMT) - With Heart, Soul and By the Law',
+    title: 'ArmenianToken (ARMT) - With Heart, Soul and By the Law',
     description:
       'Uniting Armenians worldwide to support families and children from Artsakh and those in need through cryptocurrency.',
     type: 'website',

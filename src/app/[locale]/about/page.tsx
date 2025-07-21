@@ -17,8 +17,8 @@ export default async function About() {
               <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-300 via-red-400 to-blue-500 p-1 animate-pulse-glow shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                   <Image
-                    src="/logonobb.png"
-                    alt="ArmenianCoin logonobb"
+                    src="/logo.png"
+                    alt="ArmenianToken logo"
                     width={72}
                     height={72}
                     className="object-contain rounded-full"
@@ -69,7 +69,7 @@ export default async function About() {
             </div>
             <div className="relative">
               <Image
-                src="/22A99A88-036C-4A09-A7C4-953B436D32CF.jpeg"
+                src="/people.png"
                 alt="Global Armenian Community"
                 width={600}
                 height={450}

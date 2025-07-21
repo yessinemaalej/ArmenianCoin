@@ -7,8 +7,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
-  title: 'Contact & Wallet Info - ArmenianCoin (ARMT)',
-  description: 'Get in touch with the ArmenianCoin team and find official wallet contract information for ARMT token.',
+  title: 'Contact & Wallet Info - ArmenianToken (ARMT)',
+  description: 'Get in touch with the ArmenianToken team and find official wallet contract information for ARMT token.',
 };
 
 export default function Contact() {
@@ -44,7 +44,7 @@ export default function Contact() {
   const socialLinks = [
     {
       name: 'Twitter',
-      handle: '@ArmenianCoin',
+      handle: '@ArmenianToken',
       description: t('twitterDesc'),
       icon: '🐦',
       verified: true,
@@ -58,14 +58,14 @@ export default function Contact() {
     },
     {
       name: 'Discord',
-      handle: 'ArmenianCoin Community',
+      handle: 'ArmenianToken Community',
       description: t('discordDesc'),
       icon: '💬',
       verified: true,
     },
     {
       name: 'LinkedIn',
-      handle: 'ArmenianCoin',
+      handle: 'ArmenianToken',
       description: t('linkedinDesc'),
       icon: '💼',
       verified: false,
@@ -90,8 +90,8 @@ export default function Contact() {
               <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-300 via-red-400 to-blue-500 p-1 animate-pulse-glow shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                   <Image
-                    src="/logonobb.png"
-                    alt="ArmenianCoin logonobb"
+                    src="/logo.png"
+                    alt="ArmenianToken logo"
                     width={72}
                     height={72}
                     className="object-contain rounded-full"
@@ -214,7 +214,7 @@ export default function Contact() {
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">{t('tokenName')}</h4>
                       <div className="flex items-center justify-between bg-white p-3 rounded-lg border">
-                        <span className="font-mono text-slate-700">ArmenianCoin</span>
+                        <span className="font-mono text-slate-700">ArmenianToken</span>
                         <Button variant="ghost" size="sm">
                           <Copy className="h-4 w-4" />
                         </Button>

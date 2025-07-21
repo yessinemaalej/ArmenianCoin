@@ -319,7 +319,7 @@ export default function SettingsPage() {
       const message = new SiweMessage({
         domain: window.location.host,
         address,
-        statement: 'Link wallet to ArmenianCoin account',
+        statement: 'Link wallet to ArmenianToken account',
         uri: window.location.origin,
         version: '1',
         chainId: 1,
@@ -391,7 +391,7 @@ export default function SettingsPage() {
   const downloadBackupCodes = () => {
     if (!twoFactorSetup?.backupCodes) return
     
-    const content = `ArmenianCoin 2FA Backup Codes\n\nGenerated: ${new Date().toISOString()}\n\n${twoFactorSetup.backupCodes.join('\n')}\n\nKeep these codes safe! Each code can only be used once.`
+    const content = `ArmenianToken 2FA Backup Codes\n\nGenerated: ${new Date().toISOString()}\n\n${twoFactorSetup.backupCodes.join('\n')}\n\nKeep these codes safe! Each code can only be used once.`
     const blob = new Blob([content], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')

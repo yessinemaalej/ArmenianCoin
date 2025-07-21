@@ -10,8 +10,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 /*export const metadata: Metadata = {
-  title: 'FAQ - ArmenianCoin (ARMT)',
-  description: 'Frequently asked questions about ArmenianCoin, ARMT token, and our mission.',
+  title: 'FAQ - ArmenianToken (ARMT)',
+  description: 'Frequently asked questions about ArmenianToken, ARMT token, and our mission.',
 };*/
 
 export default function FAQ() {
@@ -90,8 +90,8 @@ export default function FAQ() {
               <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-300 via-red-400 to-blue-500 p-1 animate-pulse-glow shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                   <Image
-                    src="/logonobb.png"
-                    alt="ArmenianCoin logonobb"
+                    src="/logo.png"
+                    alt="ArmenianToken logo"
                     width={56}
                     height={56}
                     className="object-contain rounded-full"

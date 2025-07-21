@@ -78,9 +78,11 @@ export default function Header() {
   const getCurrentLanguage = () => {
     return languages.find(lang => lang.code === currentLanguage) || languages[0];
   };
+  const tokenAddress="0xf868766d1357f79399463e4aba94d41d40e442be";
 
   const openUniswap = () => {
-    window.open('https://app.uniswap.org/#/swap', '_blank');
+    window.open(`https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=${tokenAddress}`
+, '_blank');
   };
 
   return (
@@ -95,8 +97,8 @@ export default function Header() {
                 <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-amber-400 via-red-500 to-blue-600 p-0.5 animate-pulse-glow">
                   <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
                     <Image
-                      src="/logonobb.png"
-                      alt="ArmenianCoin logonobb"
+                      src="/logo.png"
+                      alt="ArmenianToken logo"
                       width={32}
                       height={32}
                       className="object-contain rounded-full"
@@ -105,7 +107,7 @@ export default function Header() {
                 </div>
               </div>
               <span className="font-bold text-xl bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent group-hover:from-amber-700 group-hover:to-amber-900 transition-all">
-                ArmenianCoin
+                ArmenianToken
               </span>
             </Link>
 
