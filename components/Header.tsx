@@ -112,13 +112,7 @@ export default function Header() {
             </Link>
 
             {/* ARMT Price Display */}
-            <div className="hidden xl:flex items-center bg-gradient-to-r from-amber-50 to-blue-50 px-4 py-2 rounded-lg border border-amber-200">
-              <div className="text-sm">
-                <span className="text-slate-600">ARMT:</span>
-                <span className="font-bold text-amber-600 ml-1">$0.0024</span>
-                <span className="text-green-500 text-xs ml-1">+5.2%</span>
-              </div>
-            </div>
+
           </div>
 
           {/* Center Section: Navigation */}

@@ -293,6 +293,9 @@ export default function SignUpForm() {
             {t('signIn')}
           </Link>
         </div>
+  <div className="mt-6 px-4 py-3 rounded bg-red-100 border border-red-400 text-red-700 font-semibold text-center">
+    {t('privacyPolicyNotice')}
+  </div>
       </CardContent>
     </Card>
   )

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTelegramPlane } from 'react-icons/fa';
 
 export default function Footer() {
   const t = useTranslations('Footer');
@@ -111,6 +112,20 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+         <div className="mt-8 flex justify-center space-x-6">
+          <a href="https://instagram.com/armt_token" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <FaInstagram className="w-6 h-6 text-pink-500 hover:text-amber-400 transition" />
+          </a>
+          <a href="https://facebook.com/ArmenianToken" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <FaFacebookF className="w-6 h-6 text-blue-600 hover:text-amber-400 transition" />
+          </a>
+          <a href="https://linkedin.com/company/armenian-token" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <FaLinkedinIn className="w-6 h-6 text-blue-500 hover:text-amber-400 transition" />
+          </a>
+          <a href="https://t.me/ArmenianToken" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <FaTelegramPlane className="w-6 h-6 text-blue-400 hover:text-amber-400 transition" />
+          </a>
+        </div>
 
         <div className="border-t border-slate-700 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
@@ -127,6 +142,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
       </div>
     </footer>
   );

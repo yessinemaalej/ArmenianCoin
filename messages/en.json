@@ -1,5 +1,9 @@
 {
   "HomePage": {
+      "disclaimer": "Cryptocurrency investments are subject to risk. Please read our terms and conditions before proceeding.",
+  "termsLabel": "I have read and accept the Terms and Conditions.",
+  "termsLink": "View Terms (PDF)",
+    "donate":"Donate",
     "welcome": "Welcome to",
     "projectName": "ArmenianToken",
     "slogan": "\"With heart, soul and by the law\"",
@@ -554,7 +558,8 @@
    "SignUpPage": {
     "signUp": "Sign Up",
     "signUpDesc": "Create a new account to access ArmenianToken",
-    "name": "Name",
+    "privacyPolicyNotice": "We do not collect personal data unless necessary for communication or token delivery. All transactions are recorded on the blockchain. Your privacy is respected.",
+     "name": "Name",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm Password",

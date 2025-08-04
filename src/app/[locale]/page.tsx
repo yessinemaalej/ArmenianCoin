@@ -1,16 +1,41 @@
+'use client';
+import { FaPaypal } from 'react-icons/fa';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  ArrowRight, Shield, Users, Heart, TrendingUp, Wallet, Globe, Coins, Award
+  ArrowRight, Shield, Users, Heart, TrendingUp, Wallet, Globe, Coins, Award, CreditCard, ExternalLink, ChevronDown, ChevronUp
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import PriceWidget from '@/components/PriceWidget';
 import SwapWidget from '@/components/SwapWidget';
+import { useTranslations } from 'next-intl';
 
 export default function Home() {
-  const t = useTranslations('HomePage');
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [isDonateOpen, setIsDonateOpen] = useState(false);
+  const [isBuyOpen, setIsBuyOpen] = useState(false);
+const t = useTranslations('HomePage');
+
+  const handleCopyToClipboard = (text: string, type: string) => {
+    navigator.clipboard.writeText(text);
+    // You could add a toast notification here
+    alert(`${type} address copied to clipboard!`);
+  };
+  const VenmoIcon = () => (
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+      <rect width="32" height="32" rx="8" fill="#3D95CE" />
+      <text x="16" y="21" textAnchor="middle" fontSize="14" fill="white" fontFamily="Arial" fontWeight="bold">V</text>
+    </svg>
+  );
+  const ZelleIcon = () => (
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+      <rect width="32" height="32" rx="8" fill="#6F2DA8" />
+      <text x="16" y="21" textAnchor="middle" fontSize="14" fill="white" fontFamily="Arial">Z</text>
+    </svg>
+  );
 
   return (
     <div className="bg-gradient-to-b from-amber-50 to-white overflow-hidden">
@@ -51,18 +76,192 @@ export default function Home() {
               {t('description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up opacity-0 animate-delay-800">
-              <Button asChild size="lg" className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-2xl text-lg px-8 py-4 hover-lift">
-                <Link href="/how-to-buy">
-                  {t('buyNow')} <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+<Button
+  size="lg"
+  className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-2xl text-lg px-8 py-4 hover-lift"
+  onClick={() => setIsBuyOpen(!isBuyOpen)}
+>
+  {t('buyNow')} {isBuyOpen ? <ChevronUp className="ml-2 h-5 w-5" /> : <ChevronDown className="ml-2 h-5 w-5" />}
+</Button>
+
+
+              {/* Donate Toggle Button */}
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-2xl text-lg px-8 py-4 hover-lift"
+                onClick={() => setIsDonateOpen(!isDonateOpen)}
+              >
+                {t('donate')} {isDonateOpen ? <ChevronUp className="ml-2 h-5 w-5" /> : <ChevronDown className="ml-2 h-5 w-5" />}
               </Button>
-              <Button asChild size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white hover:text-amber-700 text-lg px-8 py-4 hover-lift shadow-xl">
+                            <Button asChild size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white hover:text-amber-700 text-lg px-8 py-4 hover-lift shadow-xl">
                 <Link href="/about">
                   {t('learnMore')}
                 </Link>
               </Button>
             </div>
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto animate-fade-in opacity-0 animate-delay-800">
+
+            {/* Collapsible Donate Section */}
+            {isDonateOpen && (
+              <div className="mt-12 max-w-4xl mx-auto animate-slide-up">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl">
+                  <div className="text-center mb-8">
+                    <h3 className="text-2xl font-bold text-white mb-2">Choose Your Donation Method</h3>
+                    <p className="text-amber-100">Help support Armenian communities worldwide</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Crypto Wallet */}
+                    <div
+                      className="bg-white/20 backdrop-blur-sm rounded-xl p-6 cursor-pointer hover:bg-white/30 transition-all hover-lift border border-white/10"
+                      onClick={() => handleCopyToClipboard('0xf868766d1357f79399463e4aba94d41d40e442be', 'Crypto wallet')}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center shadow-lg">
+                          <Wallet className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-white text-lg">Crypto Wallet</div>
+                          <div className="text-amber-100 text-sm">Send ETH or ARMT tokens</div>
+                          <div className="text-amber-200 text-xs font-mono mt-1">Click to copy address</div>
+                          <div className="text-xs text-white/80 mt-2">
+        <strong>Instructions:</strong> Open your wallet (MetaMask, TrustWallet, etc.) and send ETH or ARMT tokens to the copied address.
+      </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Zelle */}
+                    <Link
+                      href="https://www.zelle.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white/20 backdrop-blur-sm rounded-xl p-6 hover:bg-white/30 transition-all hover-lift border border-white/10 block"
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 flex items-center justify-center rounded-lg shadow-lg bg-[#6F2DA8]">
+                          <ZelleIcon />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-white text-lg flex items-center">
+                            Zelle <ExternalLink className="w-4 h-4 ml-2 text-amber-200" />
+                          </div>
+                          <div className="text-amber-100 text-sm">donate@armeniantoken.org</div>
+      <div className="text-xs text-white/80 mt-2">
+        <strong>Instructions:</strong> Log in to your bank’s app or website, choose Zelle, and send your donation to <span className="font-mono">donate@armeniantoken.org</span>.
+      </div>
+                        </div>
+                      </div>
+                    </Link>
+
+                    {/* Venmo */}
+                    <Link
+                      href="https://venmo.com/armeniantoken"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white/20 backdrop-blur-sm rounded-xl p-6 hover:bg-white/30 transition-all hover-lift border border-white/10 block"
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 flex items-center justify-center rounded-lg shadow-lg bg-[#3D95CE]">
+                          <VenmoIcon />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-white text-lg flex items-center">
+                            Venmo <ExternalLink className="w-4 h-4 ml-2 text-amber-200" />
+                          </div>
+                          <div className="text-amber-100 text-sm">@armeniantoken</div>
+      <div className="text-xs text-white/80 mt-2">
+        <strong>Instructions:</strong> Open your Venmo app and send your donation to <span className="font-mono">@armeniantoken</span>.
+      </div>
+                        </div>
+                      </div>
+                    </Link>
+
+                    {/* PayPal */}
+                    <Link
+                      href="https://paypal.me/armeniantoken"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white/20 backdrop-blur-sm rounded-xl p-6 hover:bg-white/30 transition-all hover-lift border border-white/10 block"
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 flex items-center justify-center rounded-lg shadow-lg bg-[#003087]">
+                          <FaPaypal className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-white text-lg flex items-center">
+                            PayPal <ExternalLink className="w-4 h-4 ml-2 text-amber-200" />
+                          </div>
+                          <div className="text-amber-100 text-sm">donate@armeniantoken.org</div>
+                              <div className="text-xs text-white/80 mt-2">
+        <strong>Instructions:</strong> Click the link or open your PayPal app and send your donation to <span className="font-mono">donate@armeniantoken.org</span>.
+      </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+
+                  <div className="text-center mt-8 pt-6 border-t border-white/20">
+                    <p className="text-amber-100 text-sm">
+                      💝 Every donation helps Armenian communities worldwide
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+{isBuyOpen && (
+  <div className="mt-12 max-w-2xl mx-auto animate-slide-up">
+    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl">
+      <div className="text-center mb-8">
+        <h3 className="text-2xl font-bold text-white mb-2">Buy ARMT on Uniswap</h3>
+        <p className="text-amber-100">{t('disclaimer')}</p>
+      </div>
+      <div className="flex items-center justify-center mb-6">
+        <input
+          type="checkbox"
+          id="accept-terms"
+          checked={acceptedTerms}
+          onChange={e => setAcceptedTerms(e.target.checked)}
+          className="mr-2 accent-amber-600 w-5 h-5"
+        />
+        <label htmlFor="accept-terms" className="text-white text-sm">
+          {t('termsLabel')}{' '}
+          <a
+            href="/terms.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-amber-200"
+          >
+            {t('termsLink')}
+          </a>
+        </label>
+      </div>
+      {!acceptedTerms ? (
+        <div className="text-center text-amber-100 text-sm mt-4">
+          Please accept the terms and conditions to continue.
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <iframe
+            src="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xf868766d1357f79399463e4aba94d41d40e442be"
+            width="100%"
+            height="600"
+            style={{ border: 'none', borderRadius: '16px', minHeight: '600px', background: 'white' }}
+            title="Uniswap Swap"
+            allow="clipboard-write"
+          />
+        </div>
+      )}
+      <div className="text-center mt-8 pt-6 border-t border-white/20">
+        <p className="text-amber-100 text-sm">
+          💡 Make sure your wallet is connected to Ethereum Mainnet
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
+<div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto animate-fade-in opacity-0 animate-delay-800">
               <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 hover-lift">
                 <div className="text-2xl font-bold text-amber-300">ARMT</div>
                 <div className="text-white/80 text-sm">{t('symbol')}</div>
@@ -89,7 +288,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Price Widget */}
-            {/*
+      {/*
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-slate-900 text-center lg:text-left">
                 Live ARMT Price
@@ -98,7 +297,7 @@ export default function Home() {
             </div>
             
             {/* Swap Widget */}
-            {/*<div className="space-y-4">
+      {/*<div className="space-y-4">
               <h3 className="text-2xl font-bold text-slate-900 text-center lg:text-left">
                 Get ARMT Tokens
               </h3>
@@ -108,7 +307,7 @@ export default function Home() {
         </div>
       </section>*/}
 
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-blue-50">
+     <section className="py-20 bg-gradient-to-br from-amber-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
@@ -146,7 +345,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+
+ <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
@@ -200,7 +400,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-amber-50">
+<section className="py-20 bg-gradient-to-br from-slate-50 to-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>

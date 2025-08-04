@@ -59,6 +59,29 @@ export default function Charity() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+const CHARITY_WALLET = '0x63d3454b04e40a319af6de6b2b3f361b637b9181'; // Replace with your wallet address
+const ETHERSCAN_API_KEY = 'QH299S8EI3421J8VTUQYY2ZP6P9YKN9G2I'; // Replace with your Etherscan API key
+  const [walletBalance, setWalletBalance] = useState<string | null>(null);
+  const [lastTx, setLastTx] = useState<any>(null);
+   useEffect(() => {
+    // Fetch wallet balance
+    fetch(`https://api.etherscan.io/api?module=account&action=balance&address=${CHARITY_WALLET}&tag=latest&apikey=${ETHERSCAN_API_KEY}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === "1") {
+          setWalletBalance((parseFloat(data.result) / 1e18).toFixed(4)); // ETH
+        }
+      });
+
+    // Fetch last transaction
+    fetch(`https://api.etherscan.io/api?module=account&action=txlist&address=${CHARITY_WALLET}&startblock=0&endblock=99999999&page=1&offset=1&sort=desc&apikey=${ETHERSCAN_API_KEY}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === "1" && data.result.length > 0) {
+          setLastTx(data.result[0]);
+        }
+      });
+  }, []);
   useEffect(() => {
     const fetchCharityData = async () => {
       try {
@@ -123,6 +146,32 @@ export default function Charity() {
           <p className="text-xl text-amber-100 leading-relaxed max-w-3xl mx-auto">
             {t('subtitle')}
           </p>
+        </div>
+      </section>
+       {/* Charity Wallet Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">
+            Charity Wallet
+          </h2>
+          <p className="text-slate-600 mb-2">
+            Address: <span className="font-mono">{CHARITY_WALLET}</span>
+          </p>
+          <p className="text-slate-600 mb-2">
+            Balance: <span className="font-bold">{walletBalance ? `${walletBalance} ETH` : 'Loading...'}</span>
+          </p>
+          {lastTx && (
+            <div className="mt-4 text-left inline-block">
+              <div className="text-slate-700 text-sm mb-1">Last Transaction:</div>
+              <div className="bg-slate-50 p-4 rounded shadow text-xs">
+                <div>Hash: <span className="font-mono">{lastTx.hash}</span></div>
+                <div>From: <span className="font-mono">{lastTx.from}</span></div>
+                <div>To: <span className="font-mono">{lastTx.to}</span></div>
+                <div>Value: <span>{(parseFloat(lastTx.value) / 1e18).toFixed(4)} ETH</span></div>
+                <div>Date: <span>{new Date(lastTx.timeStamp * 1000).toLocaleString()}</span></div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
